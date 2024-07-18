@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dart",
+			"command": "dart",
+			"cwd": "packages/api",
+			"args": [
+				"run",
+				"build_runner",
+				"build"
+			],
+			"problemMatcher": [],
+			"label": "build api",
+			"detail": "packages/api",
+			"group": {
+				"kind": "build",
+			}
+		}
+	]
+}
