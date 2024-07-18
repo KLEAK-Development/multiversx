@@ -1,5 +1,4 @@
 import 'package:multiversx_crypto/multiversx_crypto.dart';
-import 'package:pinenacl/ed25519.dart' as pinenacl;
 
 import 'seed.dart';
 
