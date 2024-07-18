@@ -39,4 +39,9 @@ class SigningKey {
 
 extension type PublicKey(List<int> bytes) {
   String get hex => convert.hex.encode(bytes);
+
+  String get address {
+    final bech32 = ed25519.Bech32Encoder(hrp: 'erd');
+    return bech32.encode(bytes);
+  }
 }
