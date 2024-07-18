@@ -13,7 +13,6 @@ void main() async {
 
   final signingKey = await SigningKey.fromMnemonic(mnemonic: seed);
   final publicKey = signingKey.generatePublicKey();
-  final bech32 = pinenacl.Bech32Encoder(hrp: 'erd');
-  print(bech32.encode(publicKey.bytes) ==
+  print(publicKey.bech32 ==
       'erd1qsnaz30h4c6fdn9q752kmjt57zwmgl5qg27r4jswwpj6vt3rsjyqsjck4k');
 }
