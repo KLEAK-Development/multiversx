@@ -15,14 +15,14 @@ class Bip44 {
     return Bip44._(entropy);
   }
 
-  factory Bip44.fromMnemonic({required final String mnemonic}) {
+  factory Bip44.fromMnemonic(final String mnemonic) {
     assert(validateMnemonic(mnemonic), 'mnemonic is not valid');
     return Bip44._(mnemonicToEntropy(mnemonic.trim()));
   }
 
   factory Bip44.generate() {
     final mnemonic = generateMnemonic(strength: mnemonicStrength);
-    return Bip44.fromMnemonic(mnemonic: mnemonic);
+    return Bip44.fromMnemonic(mnemonic);
   }
 
   Future<List<int>> deriveKey({
