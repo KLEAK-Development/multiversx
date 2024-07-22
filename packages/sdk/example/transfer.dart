@@ -4,7 +4,7 @@ import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/multiversx.dart';
 import 'package:multiversx_sdk/src/wallet.dart';
 
-import '../mnemonic.dart';
+import './mnemonic.dart';
 
 void main() async {
   final api = ElrondApi(
@@ -15,12 +15,11 @@ void main() async {
   final sdk = Sdk(api, await Wallet.fromMnemonic(mnemonic));
 
   final receiver = PublicKey.fromBech32(
-    'erd1sg4u62lzvgkeu4grnlwn7h2s92rqf8a64z48pl9c7us37ajv9u8qj9w8xg',
+    'erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th',
   );
 
-  await sdk.esdt.transfer(
+  await sdk.egld.transfer(
     receiver: receiver,
-    identifier: 'ALC-6258d2',
-    amount: Balance.fromString('12'),
+    amount: Balance.fromEgld(1),
   );
 }

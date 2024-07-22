@@ -11,16 +11,17 @@ final class EsdtTransferTransaction extends TransactionWithData {
     required super.receiver,
     required final String identifier,
     required final Balance amount,
+    final GasLimit gasLimit = const GasLimit(0),
     final String methodName = '',
-    final List<dynamic> arguments = const [],
+    final List<dynamic> methodArguments = const [],
   }) : super(
-            gasLimit: GasLimit(500000),
-            amount: Balance.fromEgld(0),
+            gasLimit: gasLimit + GasLimit(500000),
+            value: Balance.fromEgld(0),
             data: EsdtTranferTransactionData(
               identifier,
               amount,
               methodName: methodName,
-              arguments: arguments,
+              methodArguments: methodArguments,
             ));
 }
 
@@ -29,17 +30,17 @@ final class EsdtTranferTransactionData extends CustomTransactionData {
     final String identifier,
     final Balance balance, {
     final String methodName = '',
-    final List<dynamic> arguments = const [],
+    final List<dynamic> methodArguments = const [],
   }) {
-    final dataArguments = [
+    final arguments = [
       identifier,
       balance,
       if (methodName.isNotEmpty) methodName,
-      if (arguments.isNotEmpty) ...arguments
+      if (methodArguments.isNotEmpty) ...methodArguments
     ];
     return EsdtTranferTransactionData._(
       command: 'ESDTTransfer',
-      arguments: dataArguments,
+      arguments: arguments,
     );
   }
 

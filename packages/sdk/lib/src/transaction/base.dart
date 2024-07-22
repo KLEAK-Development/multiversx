@@ -10,7 +10,7 @@ import 'package:multiversx_sdk/src/signature.dart';
 
 base class Transaction {
   final Nonce nonce;
-  final Balance amount;
+  final Balance value;
   final PublicKey sender;
   final PublicKey receiver;
   final GasPrice gasPrice;
@@ -25,24 +25,40 @@ base class Transaction {
 
   Transaction({
     required this.nonce,
-    required this.amount,
+    required this.value,
     required this.sender,
     required this.receiver,
     required this.gasPrice,
     required this.gasLimit,
-    required this.data,
     required this.chainId,
     required this.version,
+    this.data = const TransactionData.empty(),
     this.signature = const Signature.empty(),
     this.transactionHash,
     this.guardian,
     this.guardianSignature,
   });
 
+  Transaction.withNetworkConfiguration({
+    required final NetworkConfiguration networkConfiguration,
+    required this.nonce,
+    required this.value,
+    required this.sender,
+    required this.receiver,
+    this.data = const TransactionData.empty(),
+    this.signature = const Signature.empty(),
+    this.transactionHash,
+    this.guardian,
+    this.guardianSignature,
+  })  : gasLimit = networkConfiguration.minGasLimit,
+        gasPrice = networkConfiguration.minGasPrice,
+        chainId = networkConfiguration.chainId,
+        version = networkConfiguration.minTransactionVersion;
+
   Map<String, dynamic> toMap({final PublicKey? signedBy}) {
     final map = <String, dynamic>{};
     map['nonce'] = nonce.value;
-    map['value'] = amount.value.toString();
+    map['value'] = value.value.toString();
     map['receiver'] = receiver.bech32;
     map['sender'] = signedBy?.bech32 ?? sender.bech32;
     map['gasPrice'] = gasPrice.value;
@@ -73,7 +89,7 @@ base class Transaction {
   }) =>
       Transaction(
         nonce: nonce,
-        amount: amount,
+        value: value,
         receiver: receiver,
         sender: newSender ?? sender,
         gasPrice: gasPrice,
@@ -88,11 +104,27 @@ base class Transaction {
       );
 }
 
-base class TransactionWithData extends Transaction {
-  TransactionWithData({
+base class TransactionWithNetworkConfiguration extends Transaction {
+  TransactionWithNetworkConfiguration({
     required final NetworkConfiguration networkConfiguration,
     required super.nonce,
-    required super.amount,
+    required super.value,
+    required super.sender,
+    required super.receiver,
+    required super.gasLimit,
+    required super.data,
+  }) : super(
+          gasPrice: networkConfiguration.minGasPrice,
+          chainId: networkConfiguration.chainId,
+          version: networkConfiguration.minTransactionVersion,
+        );
+}
+
+base class TransactionWithData extends TransactionWithNetworkConfiguration {
+  TransactionWithData({
+    required super.networkConfiguration,
+    required super.nonce,
+    required super.value,
     required super.sender,
     required super.receiver,
     required final GasLimit gasLimit,
@@ -104,9 +136,6 @@ base class TransactionWithData extends Transaction {
                 minGasLimit: networkConfiguration.minGasLimit.value,
                 gasPerDataByte: networkConfiguration.gasPerDataByte,
               ),
-          gasPrice: networkConfiguration.minGasPrice,
-          chainId: networkConfiguration.chainId,
-          version: networkConfiguration.minTransactionVersion,
         );
 }
 
@@ -144,6 +173,7 @@ List<String> mapTransactionDataArgumentsToString(List<dynamic> arguments) {
           String value => convert.hex.encode(utf8.encode(value)),
           List<int> value => convert.hex.encode(value),
           Balance balance => _padStringNumber(balance.value.toRadixString(16)),
+          Nonce nonce => _padStringNumber(nonce.value.toRadixString(16)),
           PublicKey publicKey => convert.hex.encode(publicKey.bytes),
           _ => '',
         };

@@ -4,7 +4,7 @@ base class CustomTransaction extends TransactionWithData {
   CustomTransaction({
     required super.networkConfiguration,
     required super.nonce,
-    required super.amount,
+    required super.value,
     required super.sender,
     required super.receiver,
     required super.gasLimit,

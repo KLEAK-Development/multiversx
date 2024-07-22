@@ -15,6 +15,10 @@ class Balance {
     return Balance(BigInt.parse(value));
   }
 
+  factory Balance.fromNum(num value) {
+    return Balance(BigInt.from(value));
+  }
+
   factory Balance.fromEgld(num value) {
     var v = value;
     var count = 0;
