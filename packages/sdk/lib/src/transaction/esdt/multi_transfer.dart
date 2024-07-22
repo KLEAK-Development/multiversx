@@ -17,18 +17,19 @@ class TransferTokenWithQuantityAndNonce {
   });
 }
 
-final class MultiEsdtTransferTransaction
+final class MultiEsdtNftTransferTransaction
     extends TransactionWithNetworkConfiguration {
-  MultiEsdtTransferTransaction({
+  MultiEsdtNftTransferTransaction({
     required super.networkConfiguration,
     required super.nonce,
     required super.sender,
-    required super.receiver,
+    required PublicKey receiver,
     required final List<TransferTokenWithQuantityAndNonce> tokens,
     final GasLimit gasLimit = const GasLimit(0),
     final String methodName = '',
     final List<dynamic> methodArguments = const [],
   }) : super(
+            receiver: sender,
             gasLimit: gasLimit +
                 (GasLimit(1100000) * tokens.length) +
                 (methodName.isNotEmpty ? GasLimit(6000000) : GasLimit(0)),

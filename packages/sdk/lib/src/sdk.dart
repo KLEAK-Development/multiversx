@@ -97,7 +97,7 @@ class Esdt {
     final networkConfiguration = NetworkConfiguration();
     final nonceSender = Nonce.zero();
 
-    final transaction = MultiEsdtTransferTransaction(
+    final transaction = MultiEsdtNftTransferTransaction(
       networkConfiguration: networkConfiguration,
       nonce: nonceSender,
       receiver: receiver,
