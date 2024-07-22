@@ -29,17 +29,18 @@ final class MultiEsdtNftTransferTransaction
     final String methodName = '',
     final List<dynamic> methodArguments = const [],
   }) : super(
-            receiver: sender,
-            gasLimit: gasLimit +
-                (GasLimit(1100000) * tokens.length) +
-                (methodName.isNotEmpty ? GasLimit(6000000) : GasLimit(0)),
-            value: Balance.fromEgld(0),
-            data: MultiEsdtNftTranferTransactionData(
-              receiver,
-              tokens,
-              methodName: methodName,
-              methodArguments: methodArguments,
-            ));
+          receiver: sender,
+          gasLimit: gasLimit +
+              (GasLimit(1100000) * tokens.length) +
+              (methodName.isNotEmpty ? GasLimit(6000000) : GasLimit(0)),
+          value: Balance.fromEgld(0),
+          data: MultiEsdtNftTranferTransactionData(
+            receiver,
+            tokens,
+            methodName: methodName,
+            methodArguments: methodArguments,
+          ),
+        );
 }
 
 final class MultiEsdtNftTranferTransactionData extends CustomTransactionData {

@@ -3,8 +3,9 @@ import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_configuration.dart';
 import 'package:multiversx_sdk/src/nonce.dart';
-import 'package:multiversx_sdk/src/transaction/esdt/multi_transfer.dart';
-import 'package:multiversx_sdk/src/transaction/esdt/transfer.dart';
+import 'package:multiversx_sdk/src/transaction/esdt/esdt_nft_transfer.dart';
+import 'package:multiversx_sdk/src/transaction/esdt/multi_esdt_nft_transfer.dart';
+import 'package:multiversx_sdk/src/transaction/esdt/esdt_transfer.dart';
 import 'package:multiversx_sdk/src/transaction/transfer.dart';
 import 'package:multiversx_sdk/src/wallet.dart';
 
@@ -59,7 +60,7 @@ class Esdt {
 
   Esdt(this._api, this._wallet);
 
-  Future<void> transfer({
+  Future<void> esdtTransfer({
     required final PublicKey receiver,
     required final String identifier,
     required final Balance amount,
@@ -87,7 +88,7 @@ class Esdt {
     //  we can send transaction with api or gateway
   }
 
-  Future<void> multiTransfer({
+  Future<void> multiEsdtNftTransfer({
     required final PublicKey receiver,
     required final List<TransferTokenWithQuantityAndNonce> tokens,
     final String methodName = '',
@@ -105,6 +106,31 @@ class Esdt {
       tokens: tokens,
       methodName: methodName,
       methodArguments: methodArguments,
+    );
+
+    final signedTransaction = _wallet.signTransaction(transaction);
+
+    print(signedTransaction.toMap());
+  }
+
+  Future<void> esdtNftTransfer({
+    required final PublicKey receiver,
+    required final String identifier,
+    required final Nonce nonce,
+    required final Balance quantity,
+  }) async {
+    //  we should get networkconfiguration and nonce from blockchain
+    final networkConfiguration = NetworkConfiguration();
+    final nonceSender = Nonce.zero();
+
+    final transaction = EsdtNftTransferTransaction(
+      networkConfiguration: networkConfiguration,
+      nonce: nonceSender,
+      sender: _wallet.publicKey,
+      receiver: receiver,
+      identifier: identifier,
+      nftNonce: nonce,
+      quantity: quantity,
     );
 
     final signedTransaction = _wallet.signTransaction(transaction);

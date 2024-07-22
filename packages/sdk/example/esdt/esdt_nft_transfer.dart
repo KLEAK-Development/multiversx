@@ -2,9 +2,6 @@ import 'package:http/http.dart';
 import 'package:multiversx_api/multiversx_api.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/multiversx.dart';
-import 'package:multiversx_sdk/src/transaction/esdt/multi_transfer.dart';
-import 'package:multiversx_sdk/src/wallet.dart';
-
 import '../mnemonic.dart';
 
 void main() async {
@@ -19,21 +16,10 @@ void main() async {
     'erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx',
   );
 
-  final tokens = [
-    TransferTokenWithQuantityAndNonce(
-      identifier: 'ALC-6258d2',
-      nonce: Nonce.zero(),
-      quantity: Balance.fromNum(12),
-    ),
-    TransferTokenWithQuantityAndNonce(
-      identifier: 'SFT-1q4r8i',
-      nonce: Nonce(1),
-      quantity: Balance.fromNum(3),
-    ),
-  ];
-
-  await sdk.esdt.multiTransfer(
+  await sdk.esdt.esdtNftTransfer(
     receiver: receiver,
-    tokens: tokens,
+    identifier: 'ABC-1a9c7d',
+    nonce: Nonce(1500),
+    quantity: Balance.fromNum(1),
   );
 }

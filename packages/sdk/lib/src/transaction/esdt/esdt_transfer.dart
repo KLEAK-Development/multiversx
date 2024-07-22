@@ -15,14 +15,15 @@ final class EsdtTransferTransaction extends TransactionWithData {
     final String methodName = '',
     final List<dynamic> methodArguments = const [],
   }) : super(
-            gasLimit: gasLimit + GasLimit(500000),
-            value: Balance.fromEgld(0),
-            data: EsdtTranferTransactionData(
-              identifier,
-              amount,
-              methodName: methodName,
-              methodArguments: methodArguments,
-            ));
+          gasLimit: gasLimit + GasLimit(500000),
+          value: Balance.fromEgld(0),
+          data: EsdtTranferTransactionData(
+            identifier,
+            amount,
+            methodName: methodName,
+            methodArguments: methodArguments,
+          ),
+        );
 }
 
 final class EsdtTranferTransactionData extends CustomTransactionData {
