@@ -21,11 +21,11 @@ base class CustomTransaction extends TransactionWithData {
 base class CustomTransactionData extends TransactionData {
   CustomTransactionData({
     required final String command,
-    final List<String> arguments = const [],
+    final List<dynamic> arguments = const [],
   }) : super(
           transactionDataFromCommandAndArguments(
             command,
-            arguments: arguments,
+            arguments: mapTransactionDataArgumentsToString(arguments),
           ),
         );
 }

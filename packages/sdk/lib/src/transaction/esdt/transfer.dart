@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:convert/convert.dart' as convert;
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
@@ -15,7 +12,7 @@ final class EsdtTransferTransaction extends TransactionWithData {
     required final String identifier,
     required final Balance amount,
     final String methodName = '',
-    final List<String> arguments = const [],
+    final List<dynamic> arguments = const [],
   }) : super(
             gasLimit: GasLimit(500000),
             amount: Balance.fromEgld(0),
@@ -29,22 +26,20 @@ final class EsdtTransferTransaction extends TransactionWithData {
 
 final class EsdtTranferTransactionData extends CustomTransactionData {
   factory EsdtTranferTransactionData(
-    String identifier,
-    Balance balance, {
-    String methodName = '',
-    List<String> arguments = const [],
+    final String identifier,
+    final Balance balance, {
+    final String methodName = '',
+    final List<dynamic> arguments = const [],
   }) {
-    final amount = balance.value.toRadixString(16);
-    final formattedArguments = [
-      convert.hex.encode(utf8.encode(identifier)),
-      amount.length % 2 == 0 ? amount : '0$amount',
-      if (methodName.isNotEmpty) convert.hex.encode(utf8.encode(methodName)),
-      if (arguments.isNotEmpty)
-        ...arguments.map((element) => convert.hex.encode(utf8.encode(element)))
+    final dataArguments = [
+      identifier,
+      balance,
+      if (methodName.isNotEmpty) methodName,
+      if (arguments.isNotEmpty) ...arguments
     ];
     return EsdtTranferTransactionData._(
       command: 'ESDTTransfer',
-      arguments: formattedArguments,
+      arguments: dataArguments,
     );
   }
 

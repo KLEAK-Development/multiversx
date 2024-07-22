@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:convert/convert.dart' as convert;
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_configuration.dart';
@@ -132,4 +133,29 @@ List<int> transactionDataFromCommandAndArguments(
     sb.write('@${arguments.join('@')}');
   }
   return utf8.encode(sb.toString());
+}
+
+List<String> mapTransactionDataArgumentsToString(List<dynamic> arguments) {
+  final formattedArguments = arguments
+      .map<String>((element) {
+        final argument = switch (element) {
+          bool value => convert.hex.encode(utf8.encode(value.toString())),
+          int value => _padStringNumber(value.toRadixString(16)),
+          String value => convert.hex.encode(utf8.encode(value)),
+          List<int> value => convert.hex.encode(value),
+          Balance balance => _padStringNumber(balance.value.toRadixString(16)),
+          PublicKey publicKey => convert.hex.encode(publicKey.bytes),
+          _ => '',
+        };
+
+        return argument;
+      })
+      .where((element) => element.isNotEmpty)
+      .toList();
+
+  return formattedArguments;
+}
+
+String _padStringNumber(String number) {
+  return number.length % 2 == 0 ? number : '0$number';
 }
