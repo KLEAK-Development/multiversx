@@ -6,7 +6,7 @@ import 'package:multiversx_sdk/src/nonce.dart';
 import 'package:multiversx_sdk/src/transaction/esdt/esdt_nft_transfer.dart';
 import 'package:multiversx_sdk/src/transaction/esdt/multi_esdt_nft_transfer.dart';
 import 'package:multiversx_sdk/src/transaction/esdt/esdt_transfer.dart';
-import 'package:multiversx_sdk/src/transaction/transfer.dart';
+import 'package:multiversx_sdk/src/transaction/egld_transfer.dart';
 import 'package:multiversx_sdk/src/wallet.dart';
 
 class Sdk {
