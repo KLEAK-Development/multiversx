@@ -6,8 +6,10 @@ part 'send_transaction.g.dart';
 @immutable
 @JsonSerializable(explicitToJson: true)
 class SendTransactionRequest {
+  @JsonKey(name: 'chainID')
   final String chainId;
-  final String data;
+  @JsonKey(defaultValue: '')
+  final String? data;
   final int gasLimit;
   final int gasPrice;
   final int nonce;
@@ -22,7 +24,6 @@ class SendTransactionRequest {
 
   const SendTransactionRequest({
     required this.chainId,
-    required this.data,
     required this.gasLimit,
     required this.gasPrice,
     required this.nonce,
@@ -31,6 +32,7 @@ class SendTransactionRequest {
     required this.signature,
     required this.value,
     required this.version,
+    String this.data = '',
     this.options,
     this.guardian,
     this.guardianSignature,

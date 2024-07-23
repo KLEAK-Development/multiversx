@@ -55,7 +55,6 @@ class Transactions {
       Uri.parse(sb.toString()),
       headers: {'content-type': 'application/json'},
     );
-    print(response.body);
     if (response.statusCode != 200) {
       throw ApiException.fromJson(json.decode(response.body));
     }

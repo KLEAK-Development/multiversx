@@ -7,16 +7,17 @@ import '../mnemonic.dart';
 void main() async {
   final api = ElrondApi(
     client: Client(),
-    baseUrl: devnetApiBaseUrl,
+    baseUrl: testnetApiBaseUrl,
   );
 
-  final sdk = Sdk(api, await Wallet.fromMnemonic(mnemonic));
+  final sdk = Sdk(api);
+  final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);
 
   final receiver = PublicKey.fromBech32(
     'erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx',
   );
 
-  await sdk.esdt.esdtNftTransfer(
+  await wallet.esdtNftTransfer(
     receiver: receiver,
     identifier: 'ABC-1a9c7d',
     nonce: Nonce(1500),

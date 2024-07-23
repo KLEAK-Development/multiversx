@@ -9,8 +9,7 @@ part of 'send_transaction.dart';
 SendTransactionRequest _$SendTransactionRequestFromJson(
         Map<String, dynamic> json) =>
     SendTransactionRequest(
-      chainId: json['chainId'] as String,
-      data: json['data'] as String,
+      chainId: json['chainID'] as String,
       gasLimit: (json['gasLimit'] as num).toInt(),
       gasPrice: (json['gasPrice'] as num).toInt(),
       nonce: (json['nonce'] as num).toInt(),
@@ -19,6 +18,7 @@ SendTransactionRequest _$SendTransactionRequestFromJson(
       signature: json['signature'] as String,
       value: json['value'] as String,
       version: (json['version'] as num).toInt(),
+      data: json['data'] as String? ?? '',
       options: json['options'] as num?,
       guardian: json['guardian'] as String?,
       guardianSignature: json['guardianSignature'] as String?,
@@ -27,7 +27,7 @@ SendTransactionRequest _$SendTransactionRequestFromJson(
 Map<String, dynamic> _$SendTransactionRequestToJson(
         SendTransactionRequest instance) =>
     <String, dynamic>{
-      'chainId': instance.chainId,
+      'chainID': instance.chainId,
       'data': instance.data,
       'gasLimit': instance.gasLimit,
       'gasPrice': instance.gasPrice,

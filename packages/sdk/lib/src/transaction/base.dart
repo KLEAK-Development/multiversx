@@ -66,7 +66,7 @@ base class Transaction {
     if (data.bytes.isNotEmpty) {
       map['data'] = base64.encode(data.bytes);
     }
-    map['chainId'] = chainId.value;
+    map['chainID'] = chainId.value;
     map['version'] = version.value;
     if (signature.hex.isNotEmpty) {
       map['signature'] = signature.hex;
