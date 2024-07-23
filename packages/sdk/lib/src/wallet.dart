@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:multiversx_api/multiversx_api.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
-import 'package:multiversx_sdk/src/network_configuration.dart';
 import 'package:multiversx_sdk/src/nonce.dart';
 import 'package:multiversx_sdk/src/sdk.dart';
 import 'package:multiversx_sdk/src/signature.dart';
@@ -48,11 +47,11 @@ class Wallet {
     required Balance amount,
     required PublicKey receiver,
   }) async {
-    final networkConfiguration = NetworkConfiguration();
+    //  TODO(kevin): we should get nonce from blockchain
     final nonceSender = Nonce(1);
 
     final transaction = EgldTransferTransaction(
-      networkConfiguration: networkConfiguration,
+      networkConfiguration: _sdk.networkConfiguration,
       nonce: nonceSender,
       sender: publicKey,
       value: amount,
@@ -69,12 +68,11 @@ class Wallet {
     final String methodName = '',
     final List<String> methodArguments = const [],
   }) async {
-    //  we should get networkconfiguration and nonce from blockchain
-    final networkConfiguration = NetworkConfiguration();
+    //  TODO(kevin): we should get nonce from blockchain
     final nonceSender = Nonce.zero();
 
     final transaction = EsdtTransferTransaction(
-      networkConfiguration: networkConfiguration,
+      networkConfiguration: _sdk.networkConfiguration,
       nonce: nonceSender,
       sender: publicKey,
       receiver: receiver,
@@ -94,12 +92,11 @@ class Wallet {
     required final Nonce nonce,
     required final Balance quantity,
   }) async {
-    //  we should get networkconfiguration and nonce from blockchain
-    final networkConfiguration = NetworkConfiguration();
-    final nonceSender = Nonce.zero();
+    //  TODO(kevin): we should get nonce from blockchain
+    final nonceSender = Nonce(2);
 
     final transaction = EsdtNftTransferTransaction(
-      networkConfiguration: networkConfiguration,
+      networkConfiguration: _sdk.networkConfiguration,
       nonce: nonceSender,
       sender: publicKey,
       receiver: receiver,
@@ -118,12 +115,11 @@ class Wallet {
     final String methodName = '',
     final List<String> methodArguments = const [],
   }) async {
-    //  we should get networkconfiguration and nonce from blockchain
-    final networkConfiguration = NetworkConfiguration();
-    final nonceSender = Nonce.zero();
+    //  TODO(kevin): we should get nonce from blockchain
+    final nonceSender = Nonce(4);
 
     final transaction = MultiEsdtNftTransferTransaction(
-      networkConfiguration: networkConfiguration,
+      networkConfiguration: _sdk.networkConfiguration,
       nonce: nonceSender,
       receiver: receiver,
       sender: publicKey,

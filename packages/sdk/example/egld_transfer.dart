@@ -11,11 +11,17 @@ void main() async {
     client: client,
     baseUrl: testnetApiBaseUrl,
   );
-  final sdk = Sdk(api);
+  final sdk = Sdk(
+    api,
+    networkConfiguration: NetworkConfiguration(
+      chainId: ChainId('D'),
+    ),
+  );
+
   final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);
 
   final receiver = PublicKey.fromBech32(
-    'erd1qyu5wthldzr8wx5c9ucg8kjagg0jfs53s8nr3zpz3hypefsdd8ssycr6th',
+    'erd10ugfytgdndw5qmnykemjfpd7xrjs63f0r2qjhug0ek9gnfdjxq4s8qjvcx',
   );
 
   try {
@@ -23,11 +29,12 @@ void main() async {
       receiver: receiver,
       amount: Balance.fromEgld(0.01),
     );
-    client.close;
     print(transactionResponse.toJson());
   } on ApiException catch (e) {
     print(e.statusCode);
     print(e.message);
     print(e.error);
+  } finally {
+    client.close();
   }
 }

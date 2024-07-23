@@ -1,10 +1,16 @@
 import 'package:multiversx_api/multiversx_api.dart';
+import 'package:multiversx_sdk/src/network_configuration.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 
 class Sdk {
   final ElrondApi _api;
 
-  Sdk(this._api);
+  NetworkConfiguration networkConfiguration;
+
+  Sdk(
+    this._api, {
+    this.networkConfiguration = const NetworkConfiguration(),
+  });
 
   Future<SendTransactionResponse> sendTransaction({
     required Transaction signedTransaction,

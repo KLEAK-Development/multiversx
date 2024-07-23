@@ -2,25 +2,42 @@ import 'package:http/http.dart';
 import 'package:multiversx_api/multiversx_api.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/multiversx.dart';
+
 import '../mnemonic.dart';
 
 void main() async {
+  final client = Client();
   final api = ElrondApi(
-    client: Client(),
-    baseUrl: testnetApiBaseUrl,
+    client: client,
+    baseUrl: devnetApiBaseUrl,
   );
 
-  final sdk = Sdk(api);
+  final sdk = Sdk(
+    api,
+    networkConfiguration: NetworkConfiguration(
+      chainId: ChainId('D'),
+    ),
+  );
+
   final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);
 
   final receiver = PublicKey.fromBech32(
-    'erd1spyavw0956vq68xj8y4tenjpq2wd5a9p2c6j8gsz7ztyrnpxrruqzu66jx',
+    'erd10ugfytgdndw5qmnykemjfpd7xrjs63f0r2qjhug0ek9gnfdjxq4s8qjvcx',
   );
 
-  await wallet.esdtNftTransfer(
-    receiver: receiver,
-    identifier: 'ABC-1a9c7d',
-    nonce: Nonce(1500),
-    quantity: Balance.fromNum(1),
-  );
+  try {
+    final response = await wallet.esdtNftTransfer(
+      receiver: receiver,
+      identifier: 'MICE-9e007a',
+      nonce: Nonce(106),
+      quantity: Balance.fromNum(1),
+    );
+    print(response.toJson());
+  } on ApiException catch (e) {
+    print(e.statusCode);
+    print(e.message);
+    print(e.error);
+  } finally {
+    client.close();
+  }
 }

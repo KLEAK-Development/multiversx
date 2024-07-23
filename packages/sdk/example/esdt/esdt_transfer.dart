@@ -6,21 +6,37 @@ import 'package:multiversx_sdk/multiversx.dart';
 import '../mnemonic.dart';
 
 void main() async {
+  final client = Client();
   final api = ElrondApi(
-    client: Client(),
-    baseUrl: testnetApiBaseUrl,
+    client: client,
+    baseUrl: devnetApiBaseUrl,
   );
 
-  final sdk = Sdk(api);
+  final sdk = Sdk(
+    api,
+    networkConfiguration: NetworkConfiguration(
+      chainId: ChainId('D'),
+    ),
+  );
+
   final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);
 
   final receiver = PublicKey.fromBech32(
-    'erd1sg4u62lzvgkeu4grnlwn7h2s92rqf8a64z48pl9c7us37ajv9u8qj9w8xg',
+    'erd10ugfytgdndw5qmnykemjfpd7xrjs63f0r2qjhug0ek9gnfdjxq4s8qjvcx',
   );
 
-  await wallet.esdtTransfer(
-    receiver: receiver,
-    identifier: 'ALC-6258d2',
-    amount: Balance.fromString('12'),
-  );
+  try {
+    final response = await wallet.esdtTransfer(
+      receiver: receiver,
+      identifier: 'XOXNO-589e09',
+      amount: Balance.fromNum(1),
+    );
+    print(response.toJson());
+  } on ApiException catch (e) {
+    print(e.statusCode);
+    print(e.message);
+    print(e.error);
+  } finally {
+    client.close();
+  }
 }
