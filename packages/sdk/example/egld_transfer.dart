@@ -13,9 +13,7 @@ void main() async {
   );
   final sdk = Sdk(
     api,
-    networkConfiguration: NetworkConfiguration(
-      chainId: ChainId('D'),
-    ),
+    networkConfiguration: DevnetNetworkConfiguration(),
   );
 
   final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);

@@ -1,13 +1,13 @@
 import 'package:multiversx_sdk/src/network_parameters.dart';
 
-const defaultChainId = 'T';
+const defaultChainId = '1';
 const defaultGasPerDataByte = 1500;
 const defaultMinGasLimit = 50000;
 const defaultMinGasPrice = 1000000000;
 const defaultGasPriceModifier = 0.01;
 const defaultMinTransactionVersion = 1;
 
-class NetworkConfiguration {
+sealed class NetworkConfiguration {
   final ChainId chainId;
   final int gasPerDataByte;
   final GasLimit minGasLimit;
@@ -24,4 +24,22 @@ class NetworkConfiguration {
     this.minTransactionVersion =
         const TransactionVersion(defaultMinTransactionVersion),
   });
+
+  factory NetworkConfiguration.mainnet() = MainnetNetworkConfiguration;
+
+  factory NetworkConfiguration.testnet() = TestnetNetworkConfiguration;
+
+  factory NetworkConfiguration.devnet() = DevnetNetworkConfiguration;
+}
+
+final class MainnetNetworkConfiguration extends NetworkConfiguration {
+  const MainnetNetworkConfiguration() : super();
+}
+
+final class TestnetNetworkConfiguration extends NetworkConfiguration {
+  const TestnetNetworkConfiguration() : super(chainId: const ChainId('T'));
+}
+
+final class DevnetNetworkConfiguration extends NetworkConfiguration {
+  const DevnetNetworkConfiguration() : super(chainId: const ChainId('D'));
 }
