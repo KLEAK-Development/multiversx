@@ -26,6 +26,17 @@ class SigningKey {
     );
   }
 
+  static Future<SigningKey> generate() async {
+    final bip44 = Bip44.generate();
+    return SigningKey._(
+      ed25519.SigningKey.fromSeed(
+        Uint8List.fromList(
+          await bip44.deriveKey(),
+        ),
+      ),
+    );
+  }
+
   final ed25519.SigningKey _signingKey;
 
   SigningKey._(this._signingKey);
