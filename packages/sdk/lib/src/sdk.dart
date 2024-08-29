@@ -9,7 +9,7 @@ class Sdk {
 
   Sdk(
     this._api, {
-    this.networkConfiguration = const NetworkConfiguration(),
+    this.networkConfiguration = const DevnetNetworkConfiguration(),
   });
 
   Future<SendTransactionResponse> sendTransaction({
