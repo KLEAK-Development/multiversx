@@ -1,7 +1,8 @@
 import 'package:ed25519_hd_key/ed25519_hd_key.dart';
 import 'package:bip39/bip39.dart';
+import 'package:multiversx_crypto/src/utils/mnemonic.dart';
 
-const mnemonicStrength = 256;
+const _defaultMnemonicStrength = 256;
 const bip44DerivationPrefix = "m/44'/508'/0'/0'";
 
 class Bip44 {
@@ -11,17 +12,17 @@ class Bip44 {
 
   factory Bip44.fromEntropy(String entropy) {
     final mnemonic = entropyToMnemonic(entropy);
-    assert(validateMnemonic(mnemonic), 'mnemonic is not valid');
+    assert(mnemonic.isValid(), 'mnemonic is not valid');
     return Bip44._(entropy);
   }
 
   factory Bip44.fromMnemonic(final String mnemonic) {
-    assert(validateMnemonic(mnemonic), 'mnemonic is not valid');
+    assert(mnemonic.isValid(), 'mnemonic is not valid');
     return Bip44._(mnemonicToEntropy(mnemonic.trim()));
   }
 
-  factory Bip44.generate() {
-    final mnemonic = generateMnemonic(strength: mnemonicStrength);
+  factory Bip44.generate({final int strength = _defaultMnemonicStrength}) {
+    final mnemonic = generateMnemonic(strength: strength);
     return Bip44.fromMnemonic(mnemonic);
   }
 
