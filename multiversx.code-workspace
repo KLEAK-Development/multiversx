@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "packages/api",
+			"name": "API"
+		},
+		{
+			"path": "packages/crypto",
+			"name": "Crypto"
+		},
+		{
+			"path": "packages/sdk",
+			"name": "SDK"
+		}
+	],
+	"settings": {
+
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "API: build_runner build",
+				"type": "shell",
+				"command": "dart",
+				"args": [
+					"run",
+					"build_runner",
+					"build",
+					"--delete-conflicting-outputs"
+				],
+				"options": {
+					"cwd": "${workspaceFolder:API}"
+				},
+				"group": "build",
+				"problemMatcher": [
+					"$dart-build_runner"
+				]
+			}
+		]
+	}
+
+}
