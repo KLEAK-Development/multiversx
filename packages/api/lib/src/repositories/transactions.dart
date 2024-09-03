@@ -6,13 +6,26 @@ import 'package:multiversx_api/src/repositories/response/transaction/transaction
 import 'package:multiversx_api/src/repositories/response/transactions/send_transaction/send_transaction.dart';
 import 'package:http/http.dart';
 
+/// A class for interacting with blockchain transactions.
+///
+/// This class provides methods to send and retrieve transactions on the blockchain.
 class Transactions {
   final String _baseUrl;
   final Client _client;
 
+  /// Creates a new [Transactions] instance.
+  ///
+  /// [_baseUrl] is the base URL for the API endpoints.
+  /// [_client] is the HTTP client used for making requests.
   const Transactions(this._baseUrl, this._client);
 
-  /// Posts a signed transaction on the blockchain
+  /// Posts a signed transaction on the blockchain.
+  ///
+  /// [request] is the [SendTransactionRequest] containing the transaction details.
+  ///
+  /// Returns a [Future] that completes with a [SendTransactionResponse].
+  ///
+  /// Throws an [ApiException] if the request fails.
   Future<SendTransactionResponse> sendTransaction(
     SendTransactionRequest request,
   ) async {
@@ -28,6 +41,15 @@ class Transactions {
   }
 
   /// Returns a list of transactions available on the blockchain.
+  ///
+  /// [from] is the starting index for pagination (optional).
+  /// [size] is the number of transactions to retrieve (optional).
+  /// [sender] is the address of the transaction sender (optional).
+  /// [receiver] is a list of receiver addresses to filter by (optional).
+  ///
+  /// Returns a [Future] that completes with a [List] of [TransactionResponse] objects.
+  ///
+  /// Throws an [ApiException] if the request fails.
   Future<List<TransactionResponse>> getTransactions(
       {int? from, int? size, String? sender, List<String>? receiver}) async {
     final sb = StringBuffer('$_baseUrl/transactions');

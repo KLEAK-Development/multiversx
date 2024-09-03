@@ -9,22 +9,23 @@ void main() async {
   final client = Client();
   final api = ElrondApi(
     client: client,
-    baseUrl: devnetApiBaseUrl,
+    baseUrl: testnetApiBaseUrl,
   );
-
   final sdk = Sdk(
     api,
     networkConfiguration: DevnetNetworkConfiguration(),
   );
 
-  final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);
-
   final receiver = PublicKey.fromBech32(
     'erd10ugfytgdndw5qmnykemjfpd7xrjs63f0r2qjhug0ek9gnfdjxq4s8qjvcx',
   );
 
+  final wallet = await Wallet.fromMnemonic(mnemonic: mnemonic);
+  final walletPair = WalletPair(wallet);
+
   try {
-    final response = await wallet.esdtTransfer(
+    final response = await sdk.esdtTransfer(
+      walletPair: walletPair,
       receiver: receiver,
       identifier: 'XOXNO-589e09',
       amount: Balance.fromNum(1),

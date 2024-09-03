@@ -3,7 +3,22 @@ import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
+/// Represents an ESDT transfer transaction on the MultiversX blockchain.
+///
+/// This class extends [TransactionWithData] to create a transaction
+/// specifically for transferring ESDT tokens.
 final class EsdtTransferTransaction extends TransactionWithData {
+  /// Creates a new ESDT transfer transaction.
+  ///
+  /// [networkConfiguration] The network configuration for the transaction.
+  /// [nonce] The nonce of the sender's account.
+  /// [sender] The address of the sender.
+  /// [receiver] The address of the receiver.
+  /// [identifier] The identifier of the ESDT token.
+  /// [amount] The amount of ESDT tokens to transfer.
+  /// [gasLimit] The gas limit for the transaction (default is 0).
+  /// [methodName] The name of the method to call on the receiver (optional).
+  /// [methodArguments] The arguments for the method call (optional).
   EsdtTransferTransaction({
     required super.networkConfiguration,
     required super.nonce,
@@ -26,7 +41,17 @@ final class EsdtTransferTransaction extends TransactionWithData {
         );
 }
 
+/// Represents the data for an ESDT transfer transaction.
+///
+/// This class extends [CustomTransactionData] to create the specific
+/// data structure required for ESDT transfers.
 final class EsdtTranferTransactionData extends CustomTransactionData {
+  /// Creates a new ESDT transfer transaction data object.
+  ///
+  /// [identifier] The identifier of the ESDT token.
+  /// [balance] The amount of ESDT tokens to transfer.
+  /// [methodName] The name of the method to call on the receiver (optional).
+  /// [methodArguments] The arguments for the method call (optional).
   factory EsdtTranferTransactionData(
     final String identifier,
     final Balance balance, {
@@ -45,5 +70,9 @@ final class EsdtTranferTransactionData extends CustomTransactionData {
     );
   }
 
+  /// Private constructor for creating an ESDT transfer transaction data object.
+  ///
+  /// [command] The command for the ESDT transfer (always 'ESDTTransfer').
+  /// [arguments] The list of arguments for the ESDT transfer.
   EsdtTranferTransactionData._({required super.command, super.arguments});
 }

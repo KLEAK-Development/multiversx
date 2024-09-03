@@ -3,7 +3,17 @@ import 'package:pinenacl/api.dart';
 import 'package:pinenacl/ed25519.dart' as ed25519;
 import 'package:convert/convert.dart' as convert;
 
+/// The `SigningKey` class provides methods to generate and manage Ed25519 signing keys.
+/// 
+/// This class supports creating signing keys from a mnemonic, entropy, or generating new keys.
+/// It also provides methods to sign data and retrieve the corresponding public key.
 class SigningKey {
+  /// Creates a `SigningKey` from a mnemonic phrase.
+  /// 
+  /// The mnemonic is used to derive a seed, which is then used to create the signing key.
+  /// 
+  /// - Parameter mnemonic: The mnemonic phrase.
+  /// - Returns: A `Future` that completes with the `SigningKey`.
   static Future<SigningKey> fromMnemonic(final String mnemonic) async {
     final bip44 = Bip44.fromMnemonic(mnemonic);
     return SigningKey._(
@@ -15,6 +25,12 @@ class SigningKey {
     );
   }
 
+  /// Creates a `SigningKey` from entropy.
+  /// 
+  /// The entropy is used to derive a seed, which is then used to create the signing key.
+  /// 
+  /// - Parameter entropy: The entropy string.
+  /// - Returns: A `Future` that completes with the `SigningKey`.
   static Future<SigningKey> fromEntropy(final String entropy) async {
     final bip44 = Bip44.fromEntropy(entropy);
     return SigningKey._(
@@ -26,6 +42,11 @@ class SigningKey {
     );
   }
 
+  /// Generates a new `SigningKey`.
+  /// 
+  /// A new seed is generated and used to create the signing key.
+  /// 
+  /// - Returns: A `Future` that completes with the `SigningKey`.
   static Future<SigningKey> generate() async {
     final bip44 = Bip44.generate();
     return SigningKey._(
@@ -39,15 +60,31 @@ class SigningKey {
 
   final ed25519.SigningKey _signingKey;
 
+  /// Private constructor for creating a `SigningKey` from an Ed25519 signing key.
   SigningKey._(this._signingKey);
 
+  /// Creates a `SigningKey` from valid key bytes.
+  /// 
+  /// - Parameter bytes: The key bytes.
   SigningKey.fromValidKey({required final Uint8List bytes})
       : _signingKey = ed25519.SigningKey.fromValidBytes(bytes);
 
+  /// Gets the key bytes.
+  /// 
+  /// - Returns: A list of integers representing the key bytes.
   List<int> get bytes => _signingKey.toList();
 
+  /// Gets the corresponding public key.
+  /// 
+  /// - Returns: The `PublicKey` associated with this signing key.
   PublicKey get publicKey => PublicKey(_signingKey.publicKey);
 
+  /// Signs the given data.
+  /// 
+  /// The data is signed using the Ed25519 signing key.
+  /// 
+  /// - Parameter data: The data to sign.
+  /// - Returns: A list of integers representing the signature.
   List<int> sign(final List<int> data) {
     final signedMessage = _signingKey.sign(Uint8List.fromList(data));
     return signedMessage.signature.toList();

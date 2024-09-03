@@ -11,20 +11,21 @@ void main() async {
     client: client,
     baseUrl: devnetApiBaseUrl,
   );
-
   final sdk = Sdk(
     api,
     networkConfiguration: DevnetNetworkConfiguration(),
   );
 
-  final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);
-
   final receiver = PublicKey.fromBech32(
     'erd10ugfytgdndw5qmnykemjfpd7xrjs63f0r2qjhug0ek9gnfdjxq4s8qjvcx',
   );
 
+  final wallet = await Wallet.fromMnemonic(mnemonic: mnemonic);
+  final walletPair = WalletPair(wallet);
+
   try {
-    final response = await wallet.esdtNftTransfer(
+    final response = await sdk.esdtNftTransfer(
+      walletPair: walletPair,
       receiver: receiver,
       identifier: 'MICE-9e007a',
       nonce: Nonce(106),

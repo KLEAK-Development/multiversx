@@ -16,14 +16,16 @@ void main() async {
     networkConfiguration: DevnetNetworkConfiguration(),
   );
 
-  final wallet = await Wallet.fromMnemonic(sdk: sdk, mnemonic: mnemonic);
-
   final receiver = PublicKey.fromBech32(
     'erd10ugfytgdndw5qmnykemjfpd7xrjs63f0r2qjhug0ek9gnfdjxq4s8qjvcx',
   );
 
+  final wallet = await Wallet.fromMnemonic(mnemonic: mnemonic);
+  final walletPair = WalletPair(wallet);
+
   try {
-    final transactionResponse = await wallet.egldTransfer(
+    final transactionResponse = await sdk.egldTransfer(
+      walletPair: walletPair,
       receiver: receiver,
       amount: Balance.fromEgld(0.01),
     );

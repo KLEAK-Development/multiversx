@@ -5,11 +5,22 @@ import 'package:multiversx_sdk/src/nonce.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
+/// Represents a token transfer with quantity and nonce information.
 class TransferTokenWithQuantityAndNonce {
+  /// The identifier of the token.
   final String identifier;
+
+  /// The nonce of the token.
   final Nonce nonce;
+
+  /// The quantity of the token to be transferred.
   final Balance quantity;
 
+  /// Creates a new instance of [TransferTokenWithQuantityAndNonce].
+  ///
+  /// [identifier]: The token identifier.
+  /// [nonce]: The token nonce.
+  /// [quantity]: The quantity of the token to transfer.
   const TransferTokenWithQuantityAndNonce({
     required this.identifier,
     required this.nonce,
@@ -17,8 +28,19 @@ class TransferTokenWithQuantityAndNonce {
   });
 }
 
+/// Represents a multi ESDT/NFT transfer transaction.
 final class MultiEsdtNftTransferTransaction
     extends TransactionWithNetworkConfiguration {
+  /// Creates a new instance of [MultiEsdtNftTransferTransaction].
+  ///
+  /// [networkConfiguration]: The network configuration for the transaction.
+  /// [nonce]: The nonce of the sender's account.
+  /// [sender]: The address of the sender.
+  /// [receiver]: The public key of the receiver.
+  /// [tokens]: A list of tokens to be transferred.
+  /// [gasLimit]: The gas limit for the transaction (default is 0).
+  /// [methodName]: The name of the method to be called (optional).
+  /// [methodArguments]: The arguments for the method call (optional).
   MultiEsdtNftTransferTransaction({
     required super.networkConfiguration,
     required super.nonce,
@@ -43,7 +65,14 @@ final class MultiEsdtNftTransferTransaction
         );
 }
 
+/// Represents the data for a multi ESDT/NFT transfer transaction.
 final class MultiEsdtNftTranferTransactionData extends CustomTransactionData {
+  /// Creates a new instance of [MultiEsdtNftTranferTransactionData].
+  ///
+  /// [receiver]: The public key of the receiver.
+  /// [tokens]: A list of tokens to be transferred.
+  /// [methodName]: The name of the method to be called (optional).
+  /// [methodArguments]: The arguments for the method call (optional).
   factory MultiEsdtNftTranferTransactionData(
     final PublicKey receiver,
     final List<TransferTokenWithQuantityAndNonce> tokens, {
@@ -67,6 +96,7 @@ final class MultiEsdtNftTranferTransactionData extends CustomTransactionData {
     );
   }
 
+  /// Private constructor for [MultiEsdtNftTranferTransactionData].
   MultiEsdtNftTranferTransactionData._({
     required super.command,
     super.arguments,
