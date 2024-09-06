@@ -9,6 +9,9 @@ abstract class WalletInterface {
   /// The public key associated with this wallet.
   PublicKey get publicKey;
 
+  /// Indicates whether this wallet is a guardian wallet.
+  bool get isGuardian;
+
   /// Signs a transaction using the wallet's private key.
   ///
   /// [transaction] The transaction to be signed.
@@ -16,22 +19,19 @@ abstract class WalletInterface {
   Transaction signTransaction(Transaction transaction);
 }
 
-/// Represents a pair of wallets, including a main wallet and an optional guardian wallet.
-class WalletPair {
-  /// The main wallet of the pair.
-  final WalletInterface mainWallet;
+/// Represents an empty wallet that implements the WalletInterface.
+/// This is primarily used for placeholder or testing purposes.
+class EmptyWallet implements WalletInterface {
+  @override
+  final bool isGuardian;
 
-  /// The optional guardian wallet of the pair.
-  final WalletInterface? guardianWallet;
+  const EmptyWallet({this.isGuardian = false});
 
-  /// Creates a new WalletPair instance.
-  ///
-  /// [mainWallet] The main wallet (required).
-  /// [guardianWallet] The guardian wallet (optional).
-  WalletPair(this.mainWallet, {this.guardianWallet});
+  @override
+  PublicKey get publicKey => PublicKey.zero();
 
-  /// Indicates whether this wallet pair has a guardian wallet.
-  bool get hasGuardian => guardianWallet != null;
+  @override
+  Transaction signTransaction(Transaction transaction) => transaction;
 }
 
 /// Implements the WalletInterface and provides wallet functionality.
@@ -55,6 +55,7 @@ class Wallet implements WalletInterface {
   final SigningKey _signingKey;
 
   /// Indicates whether this wallet is a guardian wallet.
+  @override
   final bool isGuardian;
 
   Wallet._(this._bip44, this._signingKey, this.isGuardian);
@@ -83,10 +84,46 @@ class Wallet implements WalletInterface {
       return transaction.copyWith(
         newGuardianSignature: Signature.fromBytes(signature),
       );
-    } else {
-      return transaction.copyWith(
-        newSignature: Signature.fromBytes(signature),
-      );
     }
+    return transaction.copyWith(
+      newSignature: Signature.fromBytes(signature),
+    );
+  }
+}
+
+/// Represents a pair of wallets, including a main wallet and an optional guardian wallet.
+class WalletPair {
+  /// The main wallet of the pair.
+  final WalletInterface mainWallet;
+
+  /// The optional guardian wallet of the pair.
+  final WalletInterface guardianWallet;
+
+  /// Creates a new WalletPair instance.
+  ///
+  /// [mainWallet] The main wallet (required).
+  /// [guardianWallet] The guardian wallet (optional).
+  WalletPair(this.mainWallet, {this.guardianWallet = const EmptyWallet()});
+
+  WalletPair.empty()
+      : mainWallet = EmptyWallet(),
+        guardianWallet = EmptyWallet();
+
+  /// Indicates whether this wallet pair has a guardian wallet.
+  bool get hasGuardian => switch (guardianWallet) {
+        EmptyWallet() => false,
+        _ => true,
+      };
+
+  /// Signs a transaction using this wallet pair.
+  ///
+  /// [transaction] The transaction to be signed.
+  /// Returns the signed transaction.
+  Transaction signTransaction(final Transaction transaction) {
+    final signedTransaction = mainWallet.signTransaction(transaction);
+    if (!hasGuardian) {
+      return signedTransaction;
+    }
+    return guardianWallet.signTransaction(signedTransaction);
   }
 }
