@@ -30,7 +30,7 @@ class Sdk {
     // If there's a guardian, sign with guardian wallet as well
     if (walletPair.hasGuardian) {
       signedTransaction =
-          walletPair.guardianWallet!.signTransaction(signedTransaction);
+          walletPair.guardianWallet.signTransaction(signedTransaction);
     }
 
     return _api.transactions.sendTransaction(signedTransaction.toRequest());

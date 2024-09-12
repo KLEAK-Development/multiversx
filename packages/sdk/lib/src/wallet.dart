@@ -16,7 +16,9 @@ abstract class WalletInterface {
   ///
   /// [transaction] The transaction to be signed.
   /// Returns the signed transaction.
-  Transaction signTransaction(Transaction transaction);
+  Transaction signTransaction(final Transaction transaction);
+
+  Signature signMessage(final List<int> data);
 }
 
 /// Represents an empty wallet that implements the WalletInterface.
@@ -32,6 +34,9 @@ class EmptyWallet implements WalletInterface {
 
   @override
   Transaction signTransaction(Transaction transaction) => transaction;
+
+  @override
+  Signature signMessage(List<int> data) => Signature.empty();
 }
 
 /// Implements the WalletInterface and provides wallet functionality.
@@ -88,6 +93,11 @@ class Wallet implements WalletInterface {
     return transaction.copyWith(
       newSignature: Signature.fromBytes(signature),
     );
+  }
+
+  @override
+  Signature signMessage(final List<int> data) {
+    return Signature.fromBytes(_signingKey.sign(data));
   }
 }
 
