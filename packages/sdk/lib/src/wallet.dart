@@ -97,7 +97,11 @@ class Wallet implements WalletInterface {
 
   @override
   Signature signMessage(final List<int> data) {
-    return Signature.fromBytes(_signingKey.sign(data));
+    return Signature.fromBytes(
+      _signingKey.sign(
+        [...utf8.encode(publicKey.bech32), ...data],
+      ),
+    );
   }
 }
 
