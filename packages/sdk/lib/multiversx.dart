@@ -8,6 +8,9 @@ export 'src/network_parameters.dart';
 export 'src/transaction/base.dart';
 export 'src/transaction/custom.dart';
 
+export 'src/message/base.dart';
+export 'src/message/signable_message.dart';
+
 export 'src/transaction/egld_transfer.dart';
 export 'src/transaction/esdt/esdt_transfer.dart';
 export 'src/transaction/esdt/esdt_nft_transfer.dart';
