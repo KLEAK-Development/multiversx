@@ -16,6 +16,7 @@ dependencies:
     path: ../api
   multiversx_crypto:
     path: ../crypto
+  pointycastle: ^3.9.1
   json_annotation: ^4.9.0
 
 dev_dependencies:

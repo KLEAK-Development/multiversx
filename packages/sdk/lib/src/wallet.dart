@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:multiversx_crypto/multiversx_crypto.dart';
+import 'package:multiversx_sdk/src/message/base.dart';
 import 'package:multiversx_sdk/src/signature.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 
@@ -18,7 +19,7 @@ abstract class WalletInterface {
   /// Returns the signed transaction.
   Transaction signTransaction(final Transaction transaction);
 
-  Signature signMessage(final List<int> data);
+  Signature signMessage(final Message message);
 }
 
 /// Represents an empty wallet that implements the WalletInterface.
@@ -33,10 +34,10 @@ class EmptyWallet implements WalletInterface {
   PublicKey get publicKey => PublicKey.zero();
 
   @override
-  Transaction signTransaction(Transaction transaction) => transaction;
+  Transaction signTransaction(final Transaction transaction) => transaction;
 
   @override
-  Signature signMessage(List<int> data) => Signature.empty();
+  Signature signMessage(final Message message) => Signature.empty();
 }
 
 /// Implements the WalletInterface and provides wallet functionality.
@@ -96,12 +97,8 @@ class Wallet implements WalletInterface {
   }
 
   @override
-  Signature signMessage(final List<int> data) {
-    return Signature.fromBytes(
-      _signingKey.sign(
-        [...utf8.encode(publicKey.bech32), ...data],
-      ),
-    );
+  Signature signMessage(final Message message) {
+    return Signature.fromBytes(_signingKey.sign(message.bytes));
   }
 }
 
