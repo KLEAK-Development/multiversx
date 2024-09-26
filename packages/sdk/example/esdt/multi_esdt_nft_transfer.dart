@@ -24,12 +24,12 @@ void main() async {
   final walletPair = WalletPair(wallet);
 
   final tokens = [
-    TransferTokenWithQuantityAndNonce(
+    MultiTokenTransfer(
       identifier: 'MICE-9e007a',
       nonce: Nonce(365),
       quantity: Balance.fromNum(1),
     ),
-    TransferTokenWithQuantityAndNonce(
+    MultiTokenTransfer(
       identifier: 'MICE-9e007a',
       nonce: Nonce(366),
       quantity: Balance.fromNum(1),

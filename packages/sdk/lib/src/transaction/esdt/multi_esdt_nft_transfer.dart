@@ -6,25 +6,25 @@ import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
 /// Represents a token transfer with quantity and nonce information.
-class TransferTokenWithQuantityAndNonce {
+class MultiTokenTransfer {
   /// The identifier of the token.
   final String identifier;
 
   /// The nonce of the token.
-  final Nonce nonce;
+  final Nonce? nonce;
 
   /// The quantity of the token to be transferred.
   final Balance quantity;
 
-  /// Creates a new instance of [TransferTokenWithQuantityAndNonce].
+  /// Creates a new instance of [MultiTokenTransfer].
   ///
   /// [identifier]: The token identifier.
   /// [nonce]: The token nonce.
   /// [quantity]: The quantity of the token to transfer.
-  const TransferTokenWithQuantityAndNonce({
+  const MultiTokenTransfer({
     required this.identifier,
-    required this.nonce,
     required this.quantity,
+    this.nonce,
   });
 }
 
@@ -46,7 +46,7 @@ final class MultiEsdtNftTransferTransaction
     required super.nonce,
     required super.sender,
     required PublicKey receiver,
-    required final List<TransferTokenWithQuantityAndNonce> tokens,
+    required final List<MultiTokenTransfer> tokens,
     final GasLimit gasLimit = const GasLimit(0),
     final String methodName = '',
     final List<dynamic> methodArguments = const [],
@@ -75,7 +75,7 @@ final class MultiEsdtNftTranferTransactionData extends CustomTransactionData {
   /// [methodArguments]: The arguments for the method call (optional).
   factory MultiEsdtNftTranferTransactionData(
     final PublicKey receiver,
-    final List<TransferTokenWithQuantityAndNonce> tokens, {
+    final List<MultiTokenTransfer> tokens, {
     final String methodName = '',
     final List<dynamic> methodArguments = const [],
   }) {
@@ -84,7 +84,7 @@ final class MultiEsdtNftTranferTransactionData extends CustomTransactionData {
       tokens.length,
       for (final token in tokens) ...[
         token.identifier,
-        token.nonce,
+        token.nonce ?? '',
         token.quantity
       ],
       if (methodName.isNotEmpty) methodName,

@@ -105,7 +105,7 @@ class Sdk {
   Future<SendTransactionResponse> multiEsdtNftTransfer({
     required WalletPair walletPair,
     required final PublicKey receiver,
-    required final List<TransferTokenWithQuantityAndNonce> tokens,
+    required final List<MultiTokenTransfer> tokens,
     final String methodName = '',
     final List<String> methodArguments = const [],
   }) async {
