@@ -63,7 +63,7 @@ class Sdk {
     final List<String> methodArguments = const [],
   }) async {
     //  TODO(kevin): we should get nonce from blockchain
-    final nonceSender = Nonce.zero();
+    final nonceSender = Nonce(5);
 
     final transaction = EsdtTransferTransaction(
       networkConfiguration: networkConfiguration,

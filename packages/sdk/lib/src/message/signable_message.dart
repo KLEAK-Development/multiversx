@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:meta/meta.dart';
 import 'package:multiversx_sdk/src/message/base.dart';
 import 'package:pointycastle/export.dart';
 
+@immutable
 final class SignableMessage extends Message {
-  SignableMessage(super.bytes);
+  const SignableMessage(super.bytes);
 
   factory SignableMessage.fromMessage(final String message) {
     final bytes = utf8.encode(message);

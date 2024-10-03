@@ -64,6 +64,12 @@ class Balance {
     return '$integer.$decimals';
   }
 
+  /// Converts the balance to a double value.
+  ///
+  /// This getter returns the balance as a double, representing the value in EGLD.
+  /// Note that this conversion may lose precision for very large balances.
+  double get toDouble => double.parse(toDenominated);
+
   /// Returns a string representation of the [Balance] instance.
   @override
   String toString() => 'Balance{ $toDenominated }';

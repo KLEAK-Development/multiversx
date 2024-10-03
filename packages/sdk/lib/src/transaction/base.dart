@@ -25,7 +25,7 @@ base class Transaction {
   final Signature? guardianSignature;
 
   /// Creates a new [Transaction] instance with the given parameters.
-  Transaction({
+  const Transaction({
     required this.nonce,
     required this.value,
     required this.sender,
