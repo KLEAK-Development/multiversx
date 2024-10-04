@@ -9,7 +9,7 @@ void main() async {
   final client = Client();
   final api = ElrondApi(
     client: client,
-    baseUrl: testnetApiBaseUrl,
+    baseUrl: devnetApiBaseUrl,
   );
   final sdk = Sdk(
     api,
@@ -17,7 +17,7 @@ void main() async {
   );
 
   final receiver = PublicKey.fromBech32(
-    'erd10ugfytgdndw5qmnykemjfpd7xrjs63f0r2qjhug0ek9gnfdjxq4s8qjvcx',
+    'erd1fmd662htrgt07xxd8me09newa9s0euzvpz3wp0c4pz78f83grt9qm6pn57',
   );
 
   final wallet = await Wallet.fromMnemonic(mnemonic: mnemonic);
@@ -25,19 +25,17 @@ void main() async {
 
   final tokens = [
     MultiTokenTransfer(
-      identifier: 'MICE-9e007a',
-      nonce: Nonce(365),
-      quantity: Balance.fromNum(1),
+      identifier: 'EGLD-000000',
+      quantity: Balance.fromEgld(1),
     ),
     MultiTokenTransfer(
-      identifier: 'MICE-9e007a',
-      nonce: Nonce(366),
-      quantity: Balance.fromNum(1),
+      identifier: 'XOXNO-589e09',
+      quantity: Balance.fromEgld(1),
     ),
   ];
 
   try {
-    final response = await sdk.multiEsdtNftTransfer(
+    final response = await sdk.sendMultiESDTNFT(
       walletPair: walletPair,
       receiver: receiver,
       tokens: tokens,

@@ -178,23 +178,20 @@ List<int> transactionDataFromCommandAndArguments(
 
 /// Maps transaction data arguments to their string representations.
 List<String> mapTransactionDataArgumentsToString(List<dynamic> arguments) {
-  final formattedArguments = arguments
-      .map<String>((element) {
-        final argument = switch (element) {
-          bool value => convert.hex.encode(utf8.encode(value.toString())),
-          int value => _padStringNumber(value.toRadixString(16)),
-          String value => convert.hex.encode(utf8.encode(value)),
-          List<int> value => convert.hex.encode(value),
-          Balance balance => _padStringNumber(balance.value.toRadixString(16)),
-          Nonce nonce => _padStringNumber(nonce.value.toRadixString(16)),
-          PublicKey publicKey => convert.hex.encode(publicKey.bytes),
-          _ => '',
-        };
+  final formattedArguments = arguments.map<String>((element) {
+    final argument = switch (element) {
+      bool value => convert.hex.encode(utf8.encode(value.toString())),
+      int value => _padStringNumber(value.toRadixString(16)),
+      String value => convert.hex.encode(utf8.encode(value)),
+      List<int> value => convert.hex.encode(value),
+      Balance balance => _padStringNumber(balance.value.toRadixString(16)),
+      Nonce nonce => _padStringNumber(nonce.value.toRadixString(16)),
+      PublicKey publicKey => convert.hex.encode(publicKey.bytes),
+      _ => '',
+    };
 
-        return argument;
-      })
-      .where((element) => element.isNotEmpty)
-      .toList();
+    return argument;
+  }).toList();
 
   return formattedArguments;
 }

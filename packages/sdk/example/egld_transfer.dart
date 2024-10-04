@@ -24,7 +24,7 @@ void main() async {
   final walletPair = WalletPair(wallet);
 
   try {
-    final transactionResponse = await sdk.egldTransfer(
+    final transactionResponse = await sdk.sendEGLD(
       walletPair: walletPair,
       receiver: receiver,
       amount: Balance.fromEgld(0.01),

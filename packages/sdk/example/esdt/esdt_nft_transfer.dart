@@ -24,11 +24,11 @@ void main() async {
   final walletPair = WalletPair(wallet);
 
   try {
-    final response = await sdk.esdtNftTransfer(
+    final response = await sdk.sendESDTNFT(
       walletPair: walletPair,
       receiver: receiver,
       identifier: 'MICE-9e007a',
-      nonce: Nonce(106),
+      nftNonce: Nonce(106),
       quantity: Balance.fromNum(1),
     );
     print(response.toJson());

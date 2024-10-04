@@ -11,7 +11,7 @@ class MultiTokenTransfer {
   final String identifier;
 
   /// The nonce of the token.
-  final Nonce? nonce;
+  final Nonce nonce;
 
   /// The quantity of the token to be transferred.
   final Balance quantity;
@@ -24,7 +24,7 @@ class MultiTokenTransfer {
   const MultiTokenTransfer({
     required this.identifier,
     required this.quantity,
-    this.nonce,
+    this.nonce = const Nonce.zero(),
   });
 }
 
@@ -84,7 +84,7 @@ final class MultiEsdtNftTranferTransactionData extends CustomTransactionData {
       tokens.length,
       for (final token in tokens) ...[
         token.identifier,
-        token.nonce ?? '',
+        token.nonce,
         token.quantity
       ],
       if (methodName.isNotEmpty) methodName,

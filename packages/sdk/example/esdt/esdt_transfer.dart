@@ -25,11 +25,11 @@ void main() async {
   print(wallet.publicKey.bech32);
 
   try {
-    final response = await sdk.esdtTransfer(
+    final response = await sdk.sendESDT(
       walletPair: walletPair,
       receiver: receiver,
       identifier: 'XOXNO-589e09',
-      amount: Balance.fromEgld(1),
+      amount: Balance.fromEgld(1.0),
     );
     print(response.toJson());
   } on ApiException catch (e) {
