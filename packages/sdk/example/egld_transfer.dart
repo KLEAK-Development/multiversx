@@ -7,7 +7,7 @@ import './mnemonic.dart';
 
 void main() async {
   final client = Client();
-  final api = ElrondApi(
+  final api = MultiverXApi(
     client: client,
     baseUrl: testnetApiBaseUrl,
   );

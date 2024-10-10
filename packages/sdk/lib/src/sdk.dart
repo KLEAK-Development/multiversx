@@ -11,7 +11,7 @@ import 'package:multiversx_sdk/src/transaction/esdt/multi_esdt_nft_transfer.dart
 import 'package:multiversx_sdk/src/wallet.dart';
 
 class Sdk {
-  final ElrondApi _api;
+  final MultiverXApi _api;
 
   final NetworkConfiguration networkConfiguration;
 

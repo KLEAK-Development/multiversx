@@ -1,21 +1,23 @@
 {
 	"folders": [
 		{
-			"path": "packages/api",
-			"name": "API"
+			"name": "multiversx",
+			"path": "."
 		},
 		{
-			"path": "packages/crypto",
-			"name": "Crypto"
+			"name": "API",
+			"path": "packages/api"
 		},
 		{
-			"path": "packages/sdk",
-			"name": "SDK"
+			"name": "Crypto",
+			"path": "packages/crypto"
+		},
+		{
+			"name": "SDK",
+			"path": "packages/sdk"
 		}
 	],
-	"settings": {
-
-	},
+	"settings": {},
 	"tasks": {
 		"version": "2.0.0",
 		"tasks": [
@@ -39,5 +41,4 @@
 			}
 		]
 	}
-
 }

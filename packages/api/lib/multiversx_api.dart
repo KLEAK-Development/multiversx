@@ -17,14 +17,14 @@ export 'package:multiversx_api/src/repositories/response/dapp/get_config/get_con
 export 'package:multiversx_api/src/repositories/response/transactions/send_transaction/send_transaction.dart';
 export 'package:multiversx_api/src/repositories/response/transaction/transaction.dart';
 
-class ElrondApi {
+class MultiverXApi {
   final Client client;
   final String baseUrl;
 
   final Dapp dapp;
   final Transactions transactions;
 
-  ElrondApi({
+  MultiverXApi({
     required this.client,
     this.baseUrl = mainnetApiBaseUrl,
   })  : dapp = Dapp(baseUrl, client),

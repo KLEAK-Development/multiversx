@@ -12,10 +12,7 @@ environment:
 dependencies:
   bip39: ^1.0.6
   convert: ^3.1.1
-  ed25519_hd_key: 
-    git:
-      url: https://github.com/KLEAK-Development/dart-ed25519-hd-key.git
-      ref: 5faf7d72812445ce02c30fd34f85b5b8906498d6
+  ed25519_hd_key: ^2.3.0
   pinenacl: ^0.6.0
 
 dev_dependencies:

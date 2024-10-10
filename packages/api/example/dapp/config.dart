@@ -2,7 +2,7 @@ import 'package:multiversx_api/multiversx_api.dart';
 import 'package:http/io_client.dart';
 
 void main() async {
-  final api = ElrondApi(
+  final api = MultiverXApi(
     client: IOClient(),
     baseUrl: mainnetApiBaseUrl,
   );

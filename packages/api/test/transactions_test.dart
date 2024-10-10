@@ -59,7 +59,7 @@ void main() {
 
       final mockClient = MockClient(
           (request) async => Response(json.encode(responseData), 200));
-      final api = ElrondApi(
+      final api = MultiverXApi(
         baseUrl: mainnetApiBaseUrl,
         client: mockClient,
       );
@@ -81,7 +81,7 @@ void main() {
 
       final mockClient = MockClient(
           (request) async => Response(json.encode(responseData), 201));
-      final api = ElrondApi(
+      final api = MultiverXApi(
         baseUrl: mainnetApiBaseUrl,
         client: mockClient,
       );
@@ -113,7 +113,7 @@ void main() {
 
       final mockClient = MockClient(
           (request) async => Response(json.encode(responseData), 400));
-      final api = ElrondApi(
+      final api = MultiverXApi(
         baseUrl: mainnetApiBaseUrl,
         client: mockClient,
       );
