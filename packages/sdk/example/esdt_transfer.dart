@@ -3,7 +3,7 @@ import 'package:multiversx_api/multiversx_api.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/multiversx.dart';
 
-import '../mnemonic.dart';
+import 'mnemonic.dart';
 
 void main() async {
   final client = Client();
@@ -22,11 +22,15 @@ void main() async {
 
   final wallet = await Wallet.fromMnemonic(mnemonic: mnemonic);
   final walletPair = WalletPair(wallet);
-  print(wallet.publicKey.bech32);
+
+  final accountDetails =
+      await api.accounts.getAccount(walletPair.mainWallet.publicKey.bech32);
+  final nonce = Nonce(accountDetails.nonce);
 
   try {
     final response = await sdk.sendESDT(
       walletPair: walletPair,
+      nonce: nonce,
       receiver: receiver,
       identifier: 'XOXNO-589e09',
       amount: Balance.fromEgld(1.0),

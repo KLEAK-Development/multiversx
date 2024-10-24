@@ -3,6 +3,7 @@ library elrond_api;
 import 'dart:convert';
 
 import 'package:multiversx_api/src/contants.dart';
+import 'package:multiversx_api/src/repositories/accounts.dart';
 import 'package:multiversx_api/src/repositories/dapp.dart';
 import 'package:multiversx_api/src/repositories/response/response.dart';
 import 'package:multiversx_api/src/repositories/transactions.dart';
@@ -23,12 +24,14 @@ class MultiverXApi {
 
   final Dapp dapp;
   final Transactions transactions;
+  final Accounts accounts;
 
   MultiverXApi({
     required this.client,
     this.baseUrl = mainnetApiBaseUrl,
   })  : dapp = Dapp(baseUrl, client),
-        transactions = Transactions(baseUrl, client);
+        transactions = Transactions(baseUrl, client),
+        accounts = Accounts(baseUrl, client);
 
   Future<String> hello() async {
     final response = await client.get(Uri.parse('$baseUrl/hello'));
