@@ -5,14 +5,16 @@ import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 import 'package:multiversx_sdk/src/transaction/token/token_properties.dart';
 
-final class IssueNonFungibleTransaction extends TransactionWithData {
-  IssueNonFungibleTransaction({
+final class IssueEsdtTransaction extends TransactionWithData {
+  IssueEsdtTransaction({
     required super.networkConfiguration,
     required super.nonce,
     required super.sender,
     required String tokenName,
     required String tokenTicker,
-    required NftTokenProperties properties,
+    required int initialSupply,
+    required int numDecimals,
+    required EsdtTokenProperties properties,
     GasLimit gasLimit = const GasLimit(0),
   }) : super(
           receiver: PublicKey.fromBech32(
@@ -20,34 +22,40 @@ final class IssueNonFungibleTransaction extends TransactionWithData {
           ),
           gasLimit: gasLimit + const GasLimit(60000000),
           value: Balance.fromEgld(0.05),
-          data: IssueNonFungibleTransactionData(
+          data: IssueEsdtTransactionData(
             tokenName: tokenName,
             tokenTicker: tokenTicker,
+            initialSupply: initialSupply,
+            numDecimals: numDecimals,
             properties: properties,
           ),
         );
 }
 
-final class IssueNonFungibleTransactionData extends CustomTransactionData {
-  factory IssueNonFungibleTransactionData({
+final class IssueEsdtTransactionData extends CustomTransactionData {
+  factory IssueEsdtTransactionData({
     required String tokenName,
     required String tokenTicker,
-    required NftTokenProperties properties,
+    required int initialSupply,
+    required int numDecimals,
+    required EsdtTokenProperties properties,
   }) {
     final propertiesMap = properties.toMap();
     final arguments = [
       tokenName,
       tokenTicker,
+      initialSupply,
+      numDecimals,
       ...propertiesMap.entries.expand((entry) => [entry.key, entry.value])
     ];
 
-    return IssueNonFungibleTransactionData._(
-      command: 'issueNonFungible',
+    return IssueEsdtTransactionData._(
+      command: 'issue',
       arguments: arguments,
     );
   }
 
-  IssueNonFungibleTransactionData._({
+  IssueEsdtTransactionData._({
     required super.command,
     super.arguments,
   });
