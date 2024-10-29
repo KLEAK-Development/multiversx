@@ -1,9 +1,11 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 
 /// Represents a transaction for transferring EGLD (eGold) on the MultiversX blockchain.
 ///
 /// This class extends the base [Transaction] class and is specifically designed
 /// for EGLD transfers between addresses.
+@immutable
 final class EgldTransferTransaction extends Transaction {
   /// Creates a new [EgldTransferTransaction] instance.
   ///

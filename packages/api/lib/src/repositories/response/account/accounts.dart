@@ -134,7 +134,7 @@ class AccountDetailed {
   final String? codeHash;
 
   /// The root hash of the account.
-  final String rootHash;
+  final String? rootHash;
 
   /// The username associated with the account.
   final String? username;

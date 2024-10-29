@@ -1,4 +1,7 @@
+import 'package:meta/meta.dart';
+
 /// Base class for common token properties
+@immutable
 abstract base class BaseTokenProperties {
   final bool? canFreeze;
   final bool? canWipe;
@@ -29,6 +32,7 @@ abstract base class BaseTokenProperties {
 }
 
 /// Properties specific to ESDT tokens
+@immutable
 final class EsdtTokenProperties extends BaseTokenProperties {
   final bool? canMint;
   final bool? canBurn;
@@ -55,6 +59,7 @@ final class EsdtTokenProperties extends BaseTokenProperties {
 }
 
 /// Properties specific to NFT tokens
+@immutable
 final class NftTokenProperties extends BaseTokenProperties {
   final bool? canTransferNFTCreateRole;
 

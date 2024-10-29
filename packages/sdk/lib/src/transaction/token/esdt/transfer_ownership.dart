@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
@@ -5,6 +6,7 @@ import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
 /// Represents a transaction for transferring token ownership
+@immutable
 final class TransferOwnershipTransaction extends TransactionWithData {
   /// Creates a new [TransferOwnershipTransaction] instance.
   ///
@@ -36,6 +38,7 @@ final class TransferOwnershipTransaction extends TransactionWithData {
 }
 
 /// Represents the data for a transfer ownership transaction
+@immutable
 final class TransferOwnershipTransactionData extends CustomTransactionData {
   /// Creates a new [TransferOwnershipTransactionData] instance.
   ///

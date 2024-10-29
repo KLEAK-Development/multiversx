@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:convert/convert.dart' as convert;
+import 'package:meta/meta.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_configuration.dart';
@@ -9,6 +10,7 @@ import 'package:multiversx_sdk/src/nonce.dart';
 import 'package:multiversx_sdk/src/signature.dart';
 
 /// Represents a transaction on the MultiversX blockchain.
+@immutable
 base class Transaction {
   final Nonce nonce;
   final Balance value;
@@ -23,6 +25,8 @@ base class Transaction {
   final TransactionHash? transactionHash;
   final PublicKey? guardian;
   final Signature? guardianSignature;
+  final List<Transaction>? innerTransactions;
+  final PublicKey? relayer;
 
   /// Creates a new [Transaction] instance with the given parameters.
   const Transaction({
@@ -39,6 +43,8 @@ base class Transaction {
     this.transactionHash,
     this.guardian,
     this.guardianSignature,
+    this.innerTransactions,
+    this.relayer,
   });
 
   /// Creates a new [Transaction] instance using network configuration.
@@ -53,14 +59,14 @@ base class Transaction {
     this.transactionHash,
     this.guardian,
     this.guardianSignature,
+    this.innerTransactions,
+    this.relayer,
   })  : gasLimit = networkConfiguration.minGasLimit,
         gasPrice = networkConfiguration.minGasPrice,
         chainId = networkConfiguration.chainId,
         version = networkConfiguration.minTransactionVersion;
 
   /// Converts the transaction to a map representation.
-  ///
-  /// [signedBy] is an optional parameter to specify the signer's public key.
   Map<String, dynamic> toMap({final PublicKey? signedBy}) {
     final map = <String, dynamic>{};
     map['nonce'] = nonce.value;
@@ -74,6 +80,13 @@ base class Transaction {
     }
     map['chainID'] = chainId.value;
     map['version'] = version.value;
+    if (innerTransactions != null && innerTransactions!.isNotEmpty) {
+      map['innerTransactions'] =
+          innerTransactions!.map((tx) => tx.toMap()).toList();
+    }
+    if (relayer != null) {
+      map['relayer'] = relayer!.bech32;
+    }
     if (signature.hex.isNotEmpty) {
       map['signature'] = signature.hex;
     }
@@ -93,6 +106,9 @@ base class Transaction {
     final Signature? newGuardianSignature,
     final TransactionHash? newTransactionHash,
     final PublicKey? newSender,
+    final List<Transaction>? newInnerTransactions,
+    final PublicKey? newRelayer,
+    final GasLimit? newGasLimit,
   }) =>
       Transaction(
         nonce: nonce,
@@ -100,7 +116,7 @@ base class Transaction {
         receiver: receiver,
         sender: newSender ?? sender,
         gasPrice: gasPrice,
-        gasLimit: gasLimit,
+        gasLimit: newGasLimit ?? gasLimit,
         data: data,
         chainId: chainId,
         version: version,
@@ -108,10 +124,13 @@ base class Transaction {
         guardian: newGuardian ?? guardian,
         guardianSignature: newGuardianSignature ?? guardianSignature,
         transactionHash: newTransactionHash ?? transactionHash,
+        innerTransactions: newInnerTransactions ?? innerTransactions,
+        relayer: newRelayer ?? relayer,
       );
 }
 
 /// Represents a transaction with network configuration.
+@immutable
 base class TransactionWithNetworkConfiguration extends Transaction {
   TransactionWithNetworkConfiguration({
     required final NetworkConfiguration networkConfiguration,
@@ -129,6 +148,7 @@ base class TransactionWithNetworkConfiguration extends Transaction {
 }
 
 /// Represents a transaction with additional data and gas limit calculation.
+@immutable
 base class TransactionWithData extends TransactionWithNetworkConfiguration {
   TransactionWithData({
     required super.networkConfiguration,
@@ -149,6 +169,7 @@ base class TransactionWithData extends TransactionWithNetworkConfiguration {
 }
 
 /// Represents a transaction hash.
+@immutable
 class TransactionHash {
   final String hash;
 
@@ -156,6 +177,7 @@ class TransactionHash {
 }
 
 /// Represents the data payload of a transaction.
+@immutable
 base class TransactionData {
   final List<int> bytes;
 

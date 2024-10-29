@@ -68,7 +68,7 @@ AccountDetailed _$AccountDetailedFromJson(Map<String, dynamic> json) =>
       transfersLast24h: (json['transfersLast24h'] as num?)?.toInt(),
       code: json['code'] as String?,
       codeHash: json['codeHash'] as String?,
-      rootHash: json['rootHash'] as String,
+      rootHash: json['rootHash'] as String?,
       username: json['username'] as String?,
       developerReward: json['developerReward'] as String?,
       isUpgradeable: json['isUpgradeable'] as bool?,

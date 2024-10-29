@@ -1,9 +1,11 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
 /// Represents a transaction for burning ESDT tokens locally
+@immutable
 final class EsdtLocalBurnTransaction extends TransactionWithData {
   /// Creates a new [EsdtLocalBurnTransaction] instance.
   ///
@@ -33,6 +35,7 @@ final class EsdtLocalBurnTransaction extends TransactionWithData {
 }
 
 /// Represents the data for an ESDT local burn transaction
+@immutable
 final class EsdtLocalBurnTransactionData extends CustomTransactionData {
   /// Creates a new [EsdtLocalBurnTransactionData] instance.
   ///

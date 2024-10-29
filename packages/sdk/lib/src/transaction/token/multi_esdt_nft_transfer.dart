@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
@@ -6,6 +7,7 @@ import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
 /// Represents a token transfer with quantity and nonce information.
+@immutable
 class MultiTokenTransfer {
   /// The identifier of the token.
   final String identifier;
@@ -29,6 +31,7 @@ class MultiTokenTransfer {
 }
 
 /// Represents a multi ESDT/NFT transfer transaction.
+@immutable
 final class MultiEsdtNftTransferTransaction
     extends TransactionWithNetworkConfiguration {
   /// Creates a new instance of [MultiEsdtNftTransferTransaction].
@@ -66,6 +69,7 @@ final class MultiEsdtNftTransferTransaction
 }
 
 /// Represents the data for a multi ESDT/NFT transfer transaction.
+@immutable
 final class MultiEsdtNftTranferTransactionData extends CustomTransactionData {
   /// Creates a new instance of [MultiEsdtNftTranferTransactionData].
   ///

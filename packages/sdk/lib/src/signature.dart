@@ -24,4 +24,10 @@ class Signature {
   /// The bytes are converted to a hexadecimal string.
   factory Signature.fromBytes(List<int> bytes) =>
       Signature(convert.hex.encode(bytes));
+
+  /// Returns the bytes representation of this signature.
+  ///
+  /// Decodes the hexadecimal string into a list of bytes.
+  /// Returns an empty list if the signature is empty.
+  List<int> get bytes => convert.hex.decode(hex);
 }

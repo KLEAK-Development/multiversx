@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
@@ -7,6 +8,7 @@ import 'package:multiversx_sdk/src/transaction/custom.dart';
 ///
 /// This class extends [TransactionWithData] to create a transaction
 /// specifically for transferring ESDT tokens.
+@immutable
 final class EsdtTransferTransaction extends TransactionWithData {
   /// Creates a new ESDT transfer transaction.
   ///
@@ -45,6 +47,7 @@ final class EsdtTransferTransaction extends TransactionWithData {
 ///
 /// This class extends [CustomTransactionData] to create the specific
 /// data structure required for ESDT transfers.
+@immutable
 final class EsdtTranferTransactionData extends CustomTransactionData {
   /// Creates a new ESDT transfer transaction data object.
   ///

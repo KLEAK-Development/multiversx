@@ -1,9 +1,11 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 
 /// Represents a custom transaction on the MultiversX blockchain.
 ///
 /// This class extends [TransactionWithData] to provide functionality
 /// for creating transactions with custom commands and arguments.
+@immutable
 base class CustomTransaction extends TransactionWithData {
   /// Creates a new [CustomTransaction] instance.
   ///
@@ -36,6 +38,7 @@ base class CustomTransaction extends TransactionWithData {
 ///
 /// This class extends [TransactionData] to handle the specific
 /// data format required for custom transactions.
+@immutable
 base class CustomTransactionData extends TransactionData {
   /// Creates a new [CustomTransactionData] instance.
   ///

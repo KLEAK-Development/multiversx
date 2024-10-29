@@ -9,6 +9,7 @@ import 'package:multiversx_sdk/src/transaction/token/esdt/esdt_transfer.dart';
 import 'package:multiversx_sdk/src/transaction/token/esdt_nft_transfer.dart';
 import 'package:multiversx_sdk/src/transaction/token/multi_esdt_nft_transfer.dart';
 import 'package:multiversx_sdk/src/transaction/token/nft_sft/issue_non_fungible.dart';
+import 'package:multiversx_sdk/src/transaction/token/token_properties.dart';
 import 'package:multiversx_sdk/src/wallet.dart';
 
 /// A class that provides methods for interacting with the MultiversX blockchain.
@@ -32,12 +33,12 @@ class Sdk {
 
   /// Creates an EGLD transfer transaction.
   ///
-  /// [walletPair]: The wallet pair to use for the transaction.
+  /// [sender]: The public key of the sender.
   /// [nonce]: The nonce of the transaction.
   /// [amount]: The amount of EGLD to transfer.
   /// [receiver]: The public key of the receiver.
   Transaction createEGLDTransaction({
-    required WalletPair walletPair,
+    required PublicKey sender,
     required Nonce nonce,
     required Balance amount,
     required PublicKey receiver,
@@ -45,14 +46,14 @@ class Sdk {
       EgldTransferTransaction(
         networkConfiguration: networkConfiguration,
         nonce: nonce,
-        sender: walletPair.mainWallet.publicKey,
+        sender: sender,
         value: amount,
         receiver: receiver,
       );
 
   /// Creates an ESDT transfer transaction.
   ///
-  /// [walletPair]: The wallet pair to use for the transaction.
+  /// [sender]: The public key of the sender.
   /// [nonce]: The nonce of the transaction.
   /// [receiver]: The public key of the receiver.
   /// [identifier]: The identifier of the ESDT token.
@@ -60,7 +61,7 @@ class Sdk {
   /// [methodName]: Optional method name for smart contract calls.
   /// [methodArguments]: Optional method arguments for smart contract calls.
   Transaction createESDTTransaction({
-    required final WalletPair walletPair,
+    required final PublicKey sender,
     required final Nonce nonce,
     required final PublicKey receiver,
     required final String identifier,
@@ -71,7 +72,7 @@ class Sdk {
       EsdtTransferTransaction(
         networkConfiguration: networkConfiguration,
         nonce: nonce,
-        sender: walletPair.mainWallet.publicKey,
+        sender: sender,
         receiver: receiver,
         identifier: identifier,
         amount: amount,
@@ -81,14 +82,14 @@ class Sdk {
 
   /// Creates an ESDT NFT transfer transaction.
   ///
-  /// [walletPair]: The wallet pair to use for the transaction.
+  /// [sender]: The public key of the sender.
   /// [receiver]: The public key of the receiver.
   /// [identifier]: The identifier of the ESDT NFT.
   /// [nonce]: The nonce of the transaction.
   /// [nftNonce]: The nonce of the NFT.
   /// [quantity]: The quantity of NFTs to transfer.
   Transaction createESDTNFTTransaction({
-    required final WalletPair walletPair,
+    required final PublicKey sender,
     required final PublicKey receiver,
     required final String identifier,
     required final Nonce nonce,
@@ -98,7 +99,7 @@ class Sdk {
       EsdtNftTransferTransaction(
         networkConfiguration: networkConfiguration,
         nonce: nonce,
-        sender: walletPair.mainWallet.publicKey,
+        sender: sender,
         receiver: receiver,
         identifier: identifier,
         nftNonce: nftNonce,
@@ -107,14 +108,14 @@ class Sdk {
 
   /// Creates a multi ESDT NFT transfer transaction.
   ///
-  /// [walletPair]: The wallet pair to use for the transaction.
+  /// [sender]: The public key of the sender.
   /// [nonce]: The nonce of the transaction.
   /// [receiver]: The public key of the receiver.
   /// [tokens]: A list of MultiTokenTransfer objects representing the tokens to transfer.
   /// [methodName]: Optional method name for smart contract calls.
   /// [methodArguments]: Optional method arguments for smart contract calls.
   Transaction createMultiESDTNFTTransaction({
-    required final WalletPair walletPair,
+    required final PublicKey sender,
     required final Nonce nonce,
     required final PublicKey receiver,
     required final List<MultiTokenTransfer> tokens,
@@ -125,7 +126,7 @@ class Sdk {
         networkConfiguration: networkConfiguration,
         nonce: nonce,
         receiver: receiver,
-        sender: walletPair.mainWallet.publicKey,
+        sender: sender,
         tokens: tokens,
         methodName: methodName,
         methodArguments: methodArguments,
@@ -133,38 +134,26 @@ class Sdk {
 
   /// Creates a transaction to issue a non-fungible token.
   ///
-  /// [walletPair]: The wallet pair to use for the transaction.
+  /// [sender]: The public key of the sender.
   /// [nonce]: The nonce of the transaction.
   /// [tokenName]: The name of the token to issue.
   /// [tokenTicker]: The ticker of the token to issue.
   /// [canFreeze], [canWipe], [canPause], [canTransferNFTCreateRole], [canChangeOwner], [canUpgrade], [canAddSpecialRoles]:
   /// Optional boolean flags to set various permissions for the token.
   Transaction issueNonFungibleTransaction({
-    required final WalletPair walletPair,
+    required final PublicKey sender,
     required final Nonce nonce,
     required final String tokenName,
     required final String tokenTicker,
-    final bool? canFreeze,
-    final bool? canWipe,
-    final bool? canPause,
-    final bool? canTransferNFTCreateRole,
-    final bool? canChangeOwner,
-    final bool? canUpgrade,
-    final bool? canAddSpecialRoles,
+    required final NftTokenProperties properties,
   }) =>
       IssueNonFungibleTransaction(
         networkConfiguration: networkConfiguration,
-        sender: walletPair.mainWallet.publicKey,
+        sender: sender,
         nonce: nonce,
         tokenName: tokenName,
         tokenTicker: tokenTicker,
-        canFreeze: canFreeze,
-        canWipe: canWipe,
-        canPause: canPause,
-        canTransferNFTCreateRole: canTransferNFTCreateRole,
-        canChangeOwner: canChangeOwner,
-        canUpgrade: canUpgrade,
-        canAddSpecialRoles: canAddSpecialRoles,
+        properties: properties,
       );
 
   /// Signs a transaction with the given wallet pair.
@@ -210,28 +199,16 @@ class Sdk {
     required final Nonce nonce,
     required final String tokenName,
     required final String tokenTicker,
-    final bool? canFreeze,
-    final bool? canWipe,
-    final bool? canPause,
-    final bool? canTransferNFTCreateRole,
-    final bool? canChangeOwner,
-    final bool? canUpgrade,
-    final bool? canAddSpecialRoles,
+    required final NftTokenProperties properties,
   }) async {
     return signAndSendTransaction(
       walletPair: walletPair,
       transaction: issueNonFungibleTransaction(
-        walletPair: walletPair,
+        sender: walletPair.mainWallet.publicKey,
         nonce: nonce,
         tokenName: tokenName,
         tokenTicker: tokenTicker,
-        canFreeze: canFreeze,
-        canWipe: canWipe,
-        canPause: canPause,
-        canTransferNFTCreateRole: canTransferNFTCreateRole,
-        canChangeOwner: canChangeOwner,
-        canUpgrade: canUpgrade,
-        canAddSpecialRoles: canAddSpecialRoles,
+        properties: properties,
       ),
     );
   }
@@ -253,7 +230,7 @@ class Sdk {
     return signAndSendTransaction(
       walletPair: walletPair,
       transaction: createEGLDTransaction(
-        walletPair: walletPair,
+        sender: walletPair.mainWallet.publicKey,
         amount: amount,
         receiver: receiver,
         nonce: nonce,
@@ -278,7 +255,7 @@ class Sdk {
     return signAndSendTransaction(
       walletPair: walletPair,
       transaction: createESDTTransaction(
-        walletPair: walletPair,
+        sender: walletPair.mainWallet.publicKey,
         receiver: receiver,
         identifier: identifier,
         amount: amount,
@@ -303,7 +280,7 @@ class Sdk {
     return signAndSendTransaction(
       walletPair: walletPair,
       transaction: createESDTNFTTransaction(
-        walletPair: walletPair,
+        sender: walletPair.mainWallet.publicKey,
         receiver: receiver,
         identifier: identifier,
         nonce: nonce,
@@ -329,7 +306,7 @@ class Sdk {
     return signAndSendTransaction(
       walletPair: walletPair,
       transaction: createMultiESDTNFTTransaction(
-        walletPair: walletPair,
+        sender: walletPair.mainWallet.publicKey,
         receiver: receiver,
         tokens: tokens,
         nonce: nonce,

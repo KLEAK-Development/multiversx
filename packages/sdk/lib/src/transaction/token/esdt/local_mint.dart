@@ -1,9 +1,11 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
 /// Represents a transaction for minting ESDT tokens locally
+@immutable
 final class EsdtLocalMintTransaction extends TransactionWithData {
   /// Creates a new [EsdtLocalMintTransaction] instance.
   ///
@@ -33,6 +35,7 @@ final class EsdtLocalMintTransaction extends TransactionWithData {
 }
 
 /// Represents the data for an ESDT local mint transaction
+@immutable
 final class EsdtLocalMintTransactionData extends CustomTransactionData {
   /// Creates a new [EsdtLocalMintTransactionData] instance.
   ///

@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
@@ -9,6 +10,7 @@ import 'package:multiversx_sdk/src/transaction/custom.dart';
 ///
 /// This class extends [TransactionWithData] and is used to create transactions
 /// for transferring ESDT NFTs on the MultiversX blockchain.
+@immutable
 final class EsdtNftTransferTransaction extends TransactionWithData {
   /// Creates a new [EsdtNftTransferTransaction].
   ///
@@ -53,6 +55,7 @@ final class EsdtNftTransferTransaction extends TransactionWithData {
 ///
 /// This class extends [CustomTransactionData] and is used to create
 /// the data payload for ESDT NFT transfer transactions.
+@immutable
 final class EsdtNftTranferTransactionData extends CustomTransactionData {
   /// Creates a new [EsdtNftTranferTransactionData] instance.
   ///

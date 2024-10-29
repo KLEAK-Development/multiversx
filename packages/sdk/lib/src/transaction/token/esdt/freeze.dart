@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
@@ -5,6 +6,7 @@ import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
 
 /// Base class for token freeze/unfreeze transactions
+@immutable
 abstract base class TokenFreezeStateTransaction extends TransactionWithData {
   /// Creates a new [TokenFreezeStateTransaction] instance.
   ///
@@ -39,6 +41,7 @@ abstract base class TokenFreezeStateTransaction extends TransactionWithData {
 }
 
 /// Base class for token freeze/unfreeze transaction data
+@immutable
 base class TokenFreezeStateTransactionData extends CustomTransactionData {
   /// Creates a new [TokenFreezeStateTransactionData] instance.
   ///
@@ -56,6 +59,7 @@ base class TokenFreezeStateTransactionData extends CustomTransactionData {
 }
 
 /// Represents a transaction for freezing an ESDT token for a specific account
+@immutable
 final class FreezeTokenTransaction extends TokenFreezeStateTransaction {
   /// Creates a new [FreezeTokenTransaction] instance.
   ///
@@ -80,6 +84,7 @@ final class FreezeTokenTransaction extends TokenFreezeStateTransaction {
 }
 
 /// Represents a transaction for unfreezing an ESDT token for a specific account
+@immutable
 final class UnfreezeTokenTransaction extends TokenFreezeStateTransaction {
   /// Creates a new [UnfreezeTokenTransaction] instance.
   ///
