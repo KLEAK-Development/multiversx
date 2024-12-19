@@ -1,3 +1,6 @@
+## 0.1.3
+- add fromJson factory to Transaction object
+
 ## 0.1.2
 - update changelog
 

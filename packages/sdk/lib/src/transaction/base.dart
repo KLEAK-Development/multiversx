@@ -47,6 +47,42 @@ base class Transaction {
     this.relayer,
   });
 
+  factory Transaction.fromJson(Map<String, dynamic> map) {
+    List<Transaction>? innerTxs;
+    if (map['innerTransactions'] != null) {
+      innerTxs = (map['innerTransactions'] as List)
+          .map((tx) => Transaction.fromJson(tx as Map<String, dynamic>))
+          .toList();
+    }
+
+    return Transaction(
+      nonce: Nonce(map['nonce'] as int),
+      value: Balance.fromString(map['value'] as String),
+      sender: PublicKey.fromBech32(map['sender'] as String),
+      receiver: PublicKey.fromBech32(map['receiver'] as String),
+      gasPrice: GasPrice(map['gasPrice'] as int),
+      gasLimit: GasLimit(map['gasLimit'] as int),
+      data: map['data'] != null
+          ? TransactionData(base64.decode(map['data'] as String))
+          : const TransactionData.empty(),
+      chainId: ChainId(map['chainID'] as String),
+      version: TransactionVersion(map['version'] as int),
+      signature: map['signature'] != null
+          ? Signature(map['signature'] as String)
+          : const Signature.empty(),
+      guardian: map['guardian'] != null
+          ? PublicKey.fromBech32(map['guardian'] as String)
+          : null,
+      guardianSignature: map['guardianSignature'] != null
+          ? Signature(map['guardianSignature'] as String)
+          : null,
+      innerTransactions: innerTxs,
+      relayer: map['relayer'] != null
+          ? PublicKey.fromBech32(map['relayer'] as String)
+          : null,
+    );
+  }
+
   /// Creates a new [Transaction] instance using network configuration.
   Transaction.withNetworkConfiguration({
     required final NetworkConfiguration networkConfiguration,
