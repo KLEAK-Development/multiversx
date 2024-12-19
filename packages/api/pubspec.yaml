@@ -1,6 +1,6 @@
 name: multiversx_api
-description: Typesafe wrapper of the MultiversX API
-version: 0.1.0
+description: A strongly-typed MultiversX API client for Dart, ensuring type safety while interacting with blockchain endpoints.
+version: 0.1.1
 repository: https://github.com/KLEAK-Development/multiversx
 
 environment:

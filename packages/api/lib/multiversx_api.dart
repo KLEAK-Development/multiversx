@@ -1,5 +1,3 @@
-library elrond_api;
-
 import 'dart:convert';
 
 import 'package:multiversx_api/src/contants.dart';
