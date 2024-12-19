@@ -20,7 +20,7 @@ class Balance {
       : assert(value >= BigInt.zero, 'balance cannot be negative');
 
   /// Creates a new [Balance] instance with a zero value.
-  Balance.zero() : value = BigInt.from(0);
+  Balance.zero() : value = BigInt.zero;
 
   /// Creates a new [Balance] instance from a string representation.
   ///
