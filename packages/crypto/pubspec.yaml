@@ -1,5 +1,5 @@
 name: multiversx_crypto
-description: A starting point for Dart libraries or applications.
+description: Generate and use keys pair for MultiversX blockchain
 version: 0.1.0
 repository: https://github.com/KLEAK-Development/multiversx
 

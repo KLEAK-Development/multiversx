@@ -1,5 +1,5 @@
 name: multiversx_api
-description: A starting point for Dart libraries or applications.
+description: Typesafe wrapper of the MultiversX API
 version: 0.1.0
 repository: https://github.com/KLEAK-Development/multiversx
 
