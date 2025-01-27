@@ -25,10 +25,9 @@ final class CallSmartContractTransaction extends TransactionWithData {
     required super.sender,
     required super.receiver,
     required ContractFunction function,
-    GasLimit gasLimit = const GasLimit(0),
+    super.gasLimit = const GasLimit(0),
     Balance? value,
   }) : super(
-          gasLimit: gasLimit + const GasLimit(5000000),
           value: value ?? Balance.zero(),
           data: CallSmartContractTransactionData(
             function: function.name,

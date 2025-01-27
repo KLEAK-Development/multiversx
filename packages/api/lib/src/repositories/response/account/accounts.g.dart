@@ -63,8 +63,8 @@ AccountDetailed _$AccountDetailedFromJson(Map<String, dynamic> json) =>
           ? null
           : AccountAssets.fromJson(json['ownerAssets'] as Map<String, dynamic>),
       isVerified: json['isVerified'] as bool?,
-      txCount: (json['txCount'] as num).toInt(),
-      scrCount: (json['scrCount'] as num).toInt(),
+      txCount: (json['txCount'] as num?)?.toInt(),
+      scrCount: (json['scrCount'] as num?)?.toInt(),
       transfersLast24h: (json['transfersLast24h'] as num?)?.toInt(),
       code: json['code'] as String?,
       codeHash: json['codeHash'] as String?,
