@@ -18,6 +18,15 @@ export 'src/transaction/custom.dart';
 export 'src/transaction/relayer/relayer_v2.dart';
 export 'src/transaction/relayer/relayer_v3.dart';
 
+// Smart contract transaction exports
+export 'src/transaction/smart_contract/argument.dart';
+export 'src/transaction/smart_contract/call.dart';
+export 'src/transaction/smart_contract/code_metadata.dart';
+export 'src/transaction/smart_contract/common.dart';
+export 'src/transaction/smart_contract/deploy.dart';
+export 'src/transaction/smart_contract/function.dart';
+export 'src/transaction/smart_contract/upgrade.dart';
+
 // Token related exports
 export 'src/transaction/token/dynamic_token.dart';
 export 'src/transaction/token/special_role.dart';

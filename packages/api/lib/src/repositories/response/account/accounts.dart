@@ -119,10 +119,10 @@ class AccountDetailed {
   final bool? isVerified;
 
   /// The total number of transactions for the account.
-  final int txCount;
+  final int? txCount;
 
   /// The total number of smart contract results for the account.
-  final int scrCount;
+  final int? scrCount;
 
   /// The number of transfers in the last 24 hours.
   final int? transfersLast24h;

@@ -1,5 +1,6 @@
 import 'package:multiversx_api/multiversx_api.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
+import 'package:multiversx_sdk/multiversx_sdk.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_configuration.dart';
 import 'package:multiversx_sdk/src/nonce.dart';
@@ -78,6 +79,7 @@ class Sdk {
         amount: amount,
         methodName: methodName,
         methodArguments: methodArguments,
+        gasLimit: GasLimit(10000000),
       );
 
   /// Creates an ESDT NFT transfer transaction.
