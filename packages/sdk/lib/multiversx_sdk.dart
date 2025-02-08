@@ -19,7 +19,6 @@ export 'src/transaction/relayer/relayer_v2.dart';
 export 'src/transaction/relayer/relayer_v3.dart';
 
 // Smart contract transaction exports
-export 'src/transaction/smart_contract/argument.dart';
 export 'src/transaction/smart_contract/call.dart';
 export 'src/transaction/smart_contract/code_metadata.dart';
 export 'src/transaction/smart_contract/common.dart';

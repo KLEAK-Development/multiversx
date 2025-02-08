@@ -5,7 +5,6 @@ import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
-import 'package:multiversx_sdk/src/transaction/smart_contract/argument.dart';
 import 'package:multiversx_sdk/src/transaction/smart_contract/code_metadata.dart';
 import 'package:multiversx_sdk/src/transaction/smart_contract/common.dart';
 
@@ -31,7 +30,7 @@ final class DeploySmartContractTransaction extends TransactionWithData {
     required List<int> contractCode,
     required CodeMetadata metadata,
     ArwenVirtualMachine vm = ArwenVirtualMachine.v1,
-    List<ContractArgument> arguments = const [],
+    List<dynamic> arguments = const [],
     GasLimit gasLimit = const GasLimit(0),
     Balance? value,
   }) : super(
@@ -61,13 +60,12 @@ final class DeploySmartContractTransactionData extends CustomTransactionData {
     required List<int> contractCode,
     required CodeMetadata metadata,
     ArwenVirtualMachine vm = ArwenVirtualMachine.v1,
-    List<ContractArgument> contractArguments = const [],
+    List<dynamic> contractArguments = const [],
   }) {
     final arguments = [
       vm.value,
       metadata.bytes,
-      contractCode,
-      ...contractArguments.map((argument) => argument.bytes),
+      ...contractArguments,
     ];
 
     return DeploySmartContractTransactionData._(

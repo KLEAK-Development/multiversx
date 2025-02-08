@@ -6,9 +6,10 @@ import 'package:pointycastle/pointycastle.dart' show Digest;
 
 /// Represents the virtual machine type for smart contracts
 enum ArwenVirtualMachine {
-  v1('0500');
+  v1([0x05, 0x00]);
 
-  final String value;
+  final List<int> value;
+
   const ArwenVirtualMachine(this.value);
 }
 
