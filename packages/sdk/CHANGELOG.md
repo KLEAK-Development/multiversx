@@ -1,5 +1,7 @@
-## 0.2.0
+## 0.2.1
+- fix static analysis
 
+## 0.2.0
 - breaking change: ContractArgument has been removed.
 - fix smart contract deploy and upgrade
 
