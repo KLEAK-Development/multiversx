@@ -3,7 +3,6 @@ import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/custom.dart';
-import 'package:multiversx_sdk/src/transaction/smart_contract/argument.dart';
 import 'package:multiversx_sdk/src/transaction/smart_contract/code_metadata.dart';
 
 /// A transaction class used to upgrade smart contracts on the MultiversX blockchain.
@@ -28,7 +27,7 @@ final class UpgradeSmartContractTransaction extends TransactionWithData {
     required super.receiver,
     required List<int> contractCode,
     required CodeMetadata metadata,
-    List<ContractArgument> arguments = const [],
+    List<dynamic> arguments = const [],
     GasLimit gasLimit = const GasLimit(0),
     Balance? value,
   }) : super(
@@ -54,12 +53,12 @@ final class UpgradeSmartContractTransactionData extends CustomTransactionData {
   factory UpgradeSmartContractTransactionData({
     required List<int> contractCode,
     required CodeMetadata metadata,
-    List<ContractArgument> contractArguments = const [],
+    List<dynamic> contractArguments = const [],
   }) {
     final arguments = [
-      metadata.bytes,
       contractCode,
-      ...contractArguments.map((argument) => argument.bytes),
+      metadata.bytes,
+      ...contractArguments,
     ];
 
     return UpgradeSmartContractTransactionData._(

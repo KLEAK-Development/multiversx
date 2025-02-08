@@ -1,3 +1,9 @@
+## 0.2.0
+
+- breaking change: ContractArgument has been removed.
+- fix smart contract deploy and upgrade
+
+
 ## 0.1.4
 - add smart contract interaction
 
