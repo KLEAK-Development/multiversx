@@ -41,7 +41,7 @@ class TransactionAssets {
 
   /// Converts this [TransactionAssets] instance to a JSON map.
   ///
-  /// Returns a Map<String, dynamic> representing the JSON data of this [TransactionAssets] instance.
+  /// Returns a [Map<String, dynamic>] representing the JSON data of this [TransactionAssets] instance.
   Map<String, dynamic> toJson() => _$TransactionAssetsToJson(this);
 }
 

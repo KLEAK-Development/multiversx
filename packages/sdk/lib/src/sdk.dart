@@ -1,8 +1,8 @@
 import 'package:multiversx_api/multiversx_api.dart';
 import 'package:multiversx_crypto/multiversx_crypto.dart';
-import 'package:multiversx_sdk/multiversx_sdk.dart';
 import 'package:multiversx_sdk/src/balance.dart';
 import 'package:multiversx_sdk/src/network_configuration.dart';
+import 'package:multiversx_sdk/src/network_parameters.dart';
 import 'package:multiversx_sdk/src/nonce.dart';
 import 'package:multiversx_sdk/src/transaction/base.dart';
 import 'package:multiversx_sdk/src/transaction/token/egld/egld_transfer.dart';
