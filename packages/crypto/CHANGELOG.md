@@ -1,3 +1,6 @@
+## 0.1.3
+- add new SigningKey constructor to create key from valid ed25519 seed
+
 ## 0.1.2
 - update changelog
 
