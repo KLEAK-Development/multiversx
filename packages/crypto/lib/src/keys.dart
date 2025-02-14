@@ -69,6 +69,14 @@ class SigningKey {
   SigningKey.fromValidKey({required final Uint8List bytes})
       : _signingKey = ed25519.SigningKey.fromValidBytes(bytes);
 
+  /// Creates a `SigningKey` from a provided seed.
+  ///
+  /// The seed must be a valid length for Ed25519 key generation.
+  ///
+  /// - Parameter seed: The seed bytes to use for key generation.
+  SigningKey.fromSeed({required final Uint8List seed})
+      : _signingKey = ed25519.SigningKey.fromSeed(seed);
+
   /// Gets the key bytes.
   ///
   /// - Returns: A list of integers representing the key bytes.
