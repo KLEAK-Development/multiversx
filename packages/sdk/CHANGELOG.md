@@ -1,3 +1,12 @@
+## 0.3.0
+### Breaking Changes
+- entropy and mnemonic are now nullable
+### Added
+- Added new wallet creation methods:
+  - `Wallet.fromSeed()` constructor to create a wallet directly from raw seed bytes
+  - `Wallet.fromSigninKey()` constructor to create a wallet from an existing signing key
+
+
 ## 0.2.1
 - fix static analysis
 

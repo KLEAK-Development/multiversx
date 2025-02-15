@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:multiversx_crypto/multiversx_crypto.dart';
 import 'package:multiversx_sdk/src/message/base.dart';
@@ -57,20 +58,43 @@ class Wallet implements WalletInterface {
     return Wallet._(bip44, signingKey, isGuardian);
   }
 
-  final Bip44 _bip44;
+  /// The BIP-44 implementation used for mnemonic and entropy management.
+  final Bip44? _bip44;
+
+  /// The signing key used for cryptographic operations like signing transactions.
   final SigningKey _signingKey;
 
   /// Indicates whether this wallet is a guardian wallet.
   @override
   final bool isGuardian;
 
+  /// Creates a new Wallet instance from a raw seed.
+  ///
+  /// [seed] The raw seed bytes to generate the wallet from.
+  /// [isGuardian] Whether this wallet is a guardian wallet (default: false).
+  Wallet.fromSeed({
+    required final Uint8List seed,
+    this.isGuardian = false,
+  })  : _bip44 = null,
+        _signingKey = SigningKey.fromSeed(seed: seed);
+
+  /// Creates a wallet directly from the signing key without using a mnemonic phrase.
+  ///
+  /// [signingKey] The signing key used for wallet operations (required).
+  /// [isGuardian] Whether this wallet is a guardian wallet (default: false).
+  Wallet.fromSigninKey({
+    required final SigningKey signingKey,
+    this.isGuardian = false,
+  })  : _bip44 = null,
+        _signingKey = signingKey;
+
   Wallet._(this._bip44, this._signingKey, this.isGuardian);
 
   /// The entropy used to generate this wallet.
-  String get entropy => _bip44.entropy;
+  String? get entropy => _bip44?.entropy;
 
   /// The mnemonic phrase associated with this wallet.
-  String get mnemonic => _bip44.mnemonic;
+  String? get mnemonic => _bip44?.mnemonic;
 
   /// The public key associated with this wallet.
   @override

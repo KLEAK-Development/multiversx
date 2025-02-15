@@ -1,6 +1,6 @@
 name: multiversx_crypto
 description: A Dart package for MultiversX wallet creation, supporting mnemonic phrase generation and key pair management.
-version: 0.1.2
+version: 0.1.3
 repository: https://github.com/KLEAK-Development/multiversx
 
 environment:
