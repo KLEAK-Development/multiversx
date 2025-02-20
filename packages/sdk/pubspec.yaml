@@ -1,6 +1,6 @@
 name: multiversx_sdk
 description: A comprehensive Dart library for MultiversX blockchain development, simplifying blockchain interactions for Flutter and Dart developers.
-version: 0.3.0
+version: 0.4.0
 repository: https://github.com/KLEAK-Development/multiversx
 
 environment:

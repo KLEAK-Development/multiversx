@@ -1,3 +1,7 @@
+## 0.4.0
+### Breaking Changes
+- fix type from `Wallet.fromSigninKey` to `Wallet.fromSigningKey`
+
 ## 0.3.0
 ### Breaking Changes
 - entropy and mnemonic are now nullable

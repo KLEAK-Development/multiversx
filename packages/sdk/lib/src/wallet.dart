@@ -82,7 +82,7 @@ class Wallet implements WalletInterface {
   ///
   /// [signingKey] The signing key used for wallet operations (required).
   /// [isGuardian] Whether this wallet is a guardian wallet (default: false).
-  Wallet.fromSigninKey({
+  Wallet.fromSigningKey({
     required final SigningKey signingKey,
     this.isGuardian = false,
   })  : _bip44 = null,
