@@ -12,5 +12,7 @@ void main() async {
     print('result = ${result.toJson()}');
   } on ApiException catch (e) {
     print(e.toJson());
+  } finally {
+    api.client.close();
   }
 }

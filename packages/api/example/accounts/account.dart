@@ -8,11 +8,24 @@ void main() async {
   );
 
   try {
-    final result = await api.accounts.getAccount(
+    final account = await api.accounts.getAccount(
       'erd1fmd662htrgt07xxd8me09newa9s0euzvpz3wp0c4pz78f83grt9qm6pn57',
     );
-    print('result = ${result.toJson()}');
+    print('account = ${account.toJson()}');
+
+    final accountTokenCount = await api.accounts.getAccountTokensCount(
+      'erd1fmd662htrgt07xxd8me09newa9s0euzvpz3wp0c4pz78f83grt9qm6pn57',
+    );
+    print('accountTokenCount = $accountTokenCount');
+
+    final accountTokens = await api.accounts.getAccountTokens(
+      'erd1fmd662htrgt07xxd8me09newa9s0euzvpz3wp0c4pz78f83grt9qm6pn57',
+    );
+    print(
+        'accountTokens = ${accountTokens.map((token) => token.toJson()).toList()}');
   } on ApiException catch (e) {
     print(e.toJson());
+  } finally {
+    api.client.close();
   }
 }
